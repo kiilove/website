@@ -45,7 +45,7 @@ const MenuWrapper = styled.div`
 const ProductImgBox = styled.img`
   display: flex;
   flex-wrap: wrap;
-  width: 300px;
+  width: 400px;
   height: auto;
   margin-top: 20px;
   margin-bottom: 20px;

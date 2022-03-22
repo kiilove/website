@@ -61,6 +61,9 @@ const ThumbProductDark = (props) => {
   return (
     <Container>
       <ThumbWrapper>
+        <ProductWrapper>
+          <ProductImgBox src={props.img} />
+        </ProductWrapper>
         <TypoWrapper>
           <Typography
             variant="h3"
@@ -126,9 +129,6 @@ const ThumbProductDark = (props) => {
             </Typography>
           </MenuWrapper>
         </TypoWrapper>
-        <ProductWrapper>
-          <ProductImgBox src={props.img} />
-        </ProductWrapper>
       </ThumbWrapper>
     </Container>
   );

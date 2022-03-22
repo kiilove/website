@@ -57,7 +57,7 @@ const Index = () => {
           <ThumbProductHalf
             title="커스텀 데스크탑(조립)"
             subTitle="더 강력한 퍼포몬스. 검증된 조합의 시스템."
-            img="/img/product/pc/cto/asura_2022.png"
+            img="/img/etc/pc_custom_illust.png"
           />
           <ThumbProductHalfHelp
             title="도움이 필요하신가요?"
