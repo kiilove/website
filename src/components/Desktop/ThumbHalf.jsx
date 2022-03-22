@@ -54,6 +54,7 @@ const TitleWrapper = styled.div`
   height: 80px;
   align-items: center;
   justify-content: flex-start;
+  z-index: 2;
 `;
 
 const ImgWrapper = styled.div`
@@ -71,19 +72,22 @@ const ThumbHalf = (props) => {
         <Container>
           <Canvas>
             <Wrapper>
-              <MiniTitleWrapper>
-                <Typography
-                  variant="body2"
-                  gutterBottom
-                  sx={{
-                    fontWeight: 700,
-                    fontFamily: "Noto Sans KR",
-                    color: blueGrey[600],
-                  }}
-                >
-                  {props.miniTitle}
-                </Typography>
-              </MiniTitleWrapper>
+              {props.miniTitle && (
+                <MiniTitleWrapper>
+                  <Typography
+                    variant="body2"
+                    gutterBottom
+                    sx={{
+                      fontWeight: 700,
+                      fontFamily: "Noto Sans KR",
+                      color: blueGrey[600],
+                    }}
+                  >
+                    {props.miniTitle}
+                  </Typography>
+                </MiniTitleWrapper>
+              )}
+
               <TitleWrapper>
                 <Typography
                   variant="h5"

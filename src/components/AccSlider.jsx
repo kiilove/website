@@ -38,8 +38,7 @@ const Arrow = styled.div`
 
 const Wrapper = styled.div`
   box-sizing: border-box;
-  background-color: navajowhite;
-  padding: 10px 0px;
+  padding: 30px;
   height: 100%;
   display: flex;
   transition: all 1s ease;
@@ -86,7 +85,7 @@ const SlideTitle = styled.div`
 `;
 
 const SlideHidden = styled.div`
-  width: 10vw;
+  width: 315px;
   height: 300px;
   display: flex;
   align-items: center;
@@ -138,7 +137,7 @@ const FooterActionWrapeer = styled.div`
   display: flex;
 `;
 
-const ModelSlider = (props) => {
+const AccSlider = (props) => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   //console.log(dataSet);
@@ -160,6 +159,7 @@ const ModelSlider = (props) => {
       )}
 
       <Wrapper slideIndex={slideIndex}>
+        <SlideHidden></SlideHidden>
         {sliderItems.length > 0 &&
           sliderItems.map((item, index) => (
             <Slide bg={item.bg} key={index}>
@@ -213,4 +213,4 @@ const ModelSlider = (props) => {
   );
 };
 
-export default ModelSlider;
+export default AccSlider;

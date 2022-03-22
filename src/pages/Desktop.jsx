@@ -17,6 +17,8 @@ import ModelSlider from "../components/ModelSlider";
 import ThumbHalf from "../components/Desktop/ThumbHalf";
 import ItemSlider from "../components/Desktop/ItemSlider";
 import ThumbHalfCustom from "../components/Desktop/ThumbHalfCustom";
+import { sliderItems } from "../data";
+import AccSlider from "../components/AccSlider";
 
 const Container = styled.div`
   display: flex;
@@ -78,6 +80,7 @@ const AllModelWrapper = styled.div`
   box-sizing: border-box;
 `;
 const Desktop = () => {
+  console.log(sliderItems);
   return (
     <Container sx={{ fontFamily: "Noto Sans KR" }}>
       <Grid container>
@@ -416,12 +419,122 @@ const Desktop = () => {
                   <ThumbHalfCustom
                     bgColor={"#f7ae0b"}
                     title={"전문가인 당신을 위하여!"}
+                    titleColor={grey["A200"]}
                     img={"/img/etc/performance.png"}
                     imgWidth={"100%"}
                     imgHeight={"100%"}
                     imgTopMargin={"50px"}
                   />
                 </div>
+              </Box>
+            </Box>
+          </AllModelWrapper>
+        </Grid>
+        <Grid item xs={12}>
+          <AllModelWrapper>
+            <Box
+              width={"100%"}
+              height={"100%"}
+              maxWidth={"1200px"}
+              display={"flex"}
+              justifyContent={"flex-start"}
+              alignItems={"flex-start"}
+              marginBottom={4}
+            >
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{
+                  fontWeight: 700,
+                  fontFamily: "Noto Sans KR",
+                  color: blueGrey[900],
+                }}
+              >
+                공간절약.
+              </Typography>
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{
+                  fontWeight: 700,
+                  fontFamily: "Noto Sans KR",
+                  color: blueGrey[500],
+                  marginLeft: 2,
+                }}
+              >
+                작은 공간을 넓게 사용하는 방법
+              </Typography>
+            </Box>
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "flex-start",
+                  width: "100%",
+                  height: "100%",
+                  maxWidth: "1200px",
+                }}
+              >
+                <div>
+                  <ThumbHalf
+                    theme={"light"}
+                    miniTitle={"추천 제품 보기"}
+                    title={"진정한 멀티 플레이어인 당신!"}
+                    img={"/img/etc/multiComputer.jpg"}
+                    imgWidth={"350px"}
+                  />
+                </div>
+              </Box>
+            </Box>
+          </AllModelWrapper>
+        </Grid>
+        <Grid item xs={12}>
+          <AllModelWrapper>
+            <Box
+              width={"100%"}
+              height={"100%"}
+              maxWidth={"1200px"}
+              display={"flex"}
+              justifyContent={"flex-start"}
+              alignItems={"flex-start"}
+              marginBottom={4}
+            >
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{
+                  fontWeight: 700,
+                  fontFamily: "Noto Sans KR",
+                  color: blueGrey[900],
+                }}
+              >
+                액세서리.
+              </Typography>
+            </Box>
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "flex-start",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <AccSlider />
               </Box>
             </Box>
           </AllModelWrapper>

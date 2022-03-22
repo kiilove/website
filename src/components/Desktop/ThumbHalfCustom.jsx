@@ -20,6 +20,8 @@ const Canvas = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  background-image: url(${(props) => props.bgUrl});
+  background-size: cover;
   background-color: ${grey[50]};
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
@@ -67,28 +69,32 @@ const ImgWrapper = styled.div`
 const ThumbHalfCustom = (props) => {
   return (
     <Container>
-      <Canvas style={{ backgroundColor: props.bgColor }}>
+      <Canvas style={{ backgroundColor: props.bgColor }} bgUrl={props.bgUrl}>
         <Wrapper>
           <TitleWrapper>
             <Typography
               variant="h5"
               gutterBottom
               sx={{
+                width: "100%",
                 fontWeight: 700,
                 fontFamily: "Noto Sans KR",
-                color: grey["A200"],
+                color: props.titleColor,
+                textAlign: props.titleAlign,
               }}
             >
               {props.title}
             </Typography>
           </TitleWrapper>
-          <ImgWrapper style={{ marginTop: props.imgTopMargin }}>
-            <img
-              src={props.img}
-              width={props.imgWidth}
-              height={props.imgHeight}
-            />
-          </ImgWrapper>
+          {props.img && (
+            <ImgWrapper style={{ marginTop: props.imgTopMargin }}>
+              <img
+                src={props.img}
+                width={props.imgWidth}
+                height={props.imgHeight}
+              />
+            </ImgWrapper>
+          )}
         </Wrapper>
       </Canvas>
     </Container>
