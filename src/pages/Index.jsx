@@ -60,9 +60,8 @@ const Index = () => {
             img="/img/product/pc/cto/asura_2022.png"
           />
           <ThumbProductHalfHelp
-            title="찾아주세요"
+            title="도움이 필요하신가요?"
             subTitle="무엇이든 찾아드립니다."
-            comment="사용자 구성"
             img="/img/etc/help.png"
           />
         </HalfWrapper>

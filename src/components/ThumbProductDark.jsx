@@ -63,7 +63,7 @@ const ThumbProductDark = (props) => {
       <ThumbWrapper>
         <TypoWrapper>
           <Typography
-            variant="h2"
+            variant="h3"
             gutterBottom
             sx={{
               fontWeight: 600,
@@ -74,7 +74,7 @@ const ThumbProductDark = (props) => {
             {props.title}
           </Typography>
           <Typography
-            variant="h4"
+            variant="h5"
             gutterBottom
             sx={{
               fontWeight: 300,
@@ -85,7 +85,7 @@ const ThumbProductDark = (props) => {
             {props.subTitle}
           </Typography>
           <Typography
-            variant="h5"
+            variant="h6"
             gutterBottom
             sx={{
               fontWeight: 500,
@@ -97,7 +97,7 @@ const ThumbProductDark = (props) => {
           </Typography>
           <MenuWrapper>
             <Typography
-              variant="h5"
+              variant="h6"
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -111,7 +111,7 @@ const ThumbProductDark = (props) => {
               더 알아보기 <Add style={{ marginLeft: 10 }} />
             </Typography>
             <Typography
-              variant="h5"
+              variant="h6"
               sx={{
                 marginLeft: 5,
                 display: "flex",

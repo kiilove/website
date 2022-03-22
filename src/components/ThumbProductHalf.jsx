@@ -77,7 +77,7 @@ const ThumbProductHalf = (props) => {
           {props.subTitle}
         </Typography>
         <Typography
-          variant="h7"
+          variant="h6"
           gutterBottom
           sx={{
             fontWeight: 500,
@@ -89,7 +89,7 @@ const ThumbProductHalf = (props) => {
         </Typography>
         <MenuWrapper>
           <Typography
-            variant="h7"
+            variant="h6"
             sx={{
               display: "flex",
               alignItems: "center",
@@ -103,7 +103,7 @@ const ThumbProductHalf = (props) => {
             더 알아보기 <Add style={{ marginLeft: 10 }} />
           </Typography>
           <Typography
-            variant="h7"
+            variant="h6"
             sx={{
               marginLeft: 5,
               display: "flex",
