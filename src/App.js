@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import Product from "./components/Product";
 import Footer from "./components/Footer";
+import Order from "./components/Order";
 
 function App() {
   return (
@@ -30,15 +31,20 @@ function App() {
             <Route exact path="/">
               <Index />
             </Route>
-            <Route exact path="/desktop">
+            <Route path="/desktop">
               <Desktop />
             </Route>
-            <Route exact path="/product">
+            <Route path="/product">
               <Product />
+            </Route>
+            <Route path="/orderPage">
+              <Order />
             </Route>
           </Switch>
         </Grid>
-        <Grid item xs={12}><Footer/></Grid>
+        <Grid item xs={12}>
+          <Footer />
+        </Grid>
       </Grid>
     </Router>
   );

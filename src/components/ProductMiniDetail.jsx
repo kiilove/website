@@ -1,11 +1,12 @@
 import { Button, IconButton, Stack, Typography } from "@mui/material";
-import { blueGrey, grey, lightBlue } from "@mui/material/colors";
+import { blueGrey, grey, lightBlue, blue } from "@mui/material/colors";
 import { Box } from "@mui/system";
 import TurnedInNotIcon from "@mui/icons-material/TurnedInNot";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import HomeWorkOutlinedIcon from "@mui/icons-material/HomeWorkOutlined";
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ const ColorWrapper = styled.div`
 
 const SpecWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
@@ -55,6 +57,8 @@ const ActionWrapper = styled.div`
   height: 50px;
   box-sizing: border-box;
   margin-top: 20px;
+  align-items: center;
+  justify-content: center;
 `;
 
 const FavoriteWrapper = styled.div`
@@ -74,6 +78,25 @@ const ColorItem = styled.div`
   background-color: ${(props) => props.color};
   margin: 2px;
   cursor: pointer;
+`;
+
+const SelectButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px !important;
+  height: 40px;
+  border-radius: 10px;
+  background-color: ${blue[500]};
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  color: white;
+  transition: all ease-in-out 0.35s;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${blue[700]};
+  }
 `;
 const ProductMiniDetail = (props) => {
   return (
@@ -124,14 +147,9 @@ const ProductMiniDetail = (props) => {
         </Typography>
       </SpecWrapper>
       <ActionWrapper>
-        <Button
-          variant="contained"
-          disableElevation
-          fullWidth
-          sx={{ height: 35 }}
-        >
-          선택
-        </Button>
+        <Link to="/orderPage" style={{ textDecoration: "none" }}>
+          <SelectButton>선택</SelectButton>
+        </Link>
       </ActionWrapper>
       <FavoriteWrapper>
         <Stack direction={"row"} justifyContent={"space-between"}>

@@ -56,3 +56,31 @@ export const sliderItems = [
     price: 1000000,
   },
 ];
+
+export const OptionData = [
+  {
+    id: 1,
+    groupTitle: "메모리",
+    subComment: "메모리 역할에 대해 더 알아볼까요?",
+    subCommentUrl: "",
+    options: [
+      { idx: 11, title: "최종 8G 메모리(기본)", value: 0, checked: true },
+      {
+        idx: 12,
+        title: "최종 16G 메모리(8G 증설)",
+        value: 50000,
+        checked: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    groupTitle: "저장장치(SSD)",
+    subComment: "SSD 역할에 대해 더 알아볼까요?",
+    options: [
+      { idx: 21, title: "최종 256G SSD(기본)", value: 0, checked: true },
+      { idx: 22, title: "최종 500G SSD(교체)", value: 60000, checked: false },
+      { idx: 23, title: "최종 1TB SSD(교체)", value: 180000, checked: false },
+    ],
+  },
+];
