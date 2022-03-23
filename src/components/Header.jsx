@@ -9,6 +9,7 @@ export const Container = styled.div`
   display: flex;
   width: 100%;
   height: 50px;
+  text-decoration: none;
 `;
 
 const MenuWrapper = styled.div`
@@ -45,12 +46,12 @@ const Header = () => {
         alignItems={"center"}
       >
         <MenuWrapper>
-          <Link to="/">
+          <Link to="/" style={{ textDecoration: "none" }}>
             <MenuItem style={{ justifyContent: "flex-start" }}>
               <img src={jncoreWhite} width="50px" />
             </MenuItem>
           </Link>
-          <Link to="/desktop">
+          <Link to="/desktop" style={{ textDecoration: "none" }}>
             <MenuItem>데스크탑</MenuItem>
           </Link>
           <MenuItem>노트북</MenuItem>

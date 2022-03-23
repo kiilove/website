@@ -96,7 +96,7 @@ const Desktop = () => {
             >
               <Box
                 flex={3}
-                width={"100"}
+                width={"100%"}
                 display={"flex"}
                 height={"100%"}
                 justifyContent={"flex-start"}
@@ -279,13 +279,25 @@ const Desktop = () => {
               </Typography>
             </Box>
             <Box
-              width={"100%"}
-              height={"100%"}
-              display={"flex"}
-              justifyContent={"flex-start"}
-              alignItems={"flex-start"}
+              sx={{
+                display: "flex",
+                width: "100%",
+                height: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              <ModelSlider />
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                }}
+              >
+                <ModelSlider />
+              </Box>
             </Box>
           </AllModelWrapper>
         </Grid>
@@ -487,7 +499,7 @@ const Desktop = () => {
                     theme={"light"}
                     miniTitle={"추천 제품 보기"}
                     title={"진정한 멀티 플레이어인 당신!"}
-                    img={"/img/etc/multiComputer.jpg"}
+                    img={"/img/etc/multiComputer.png"}
                     imgWidth={"350px"}
                   />
                 </div>

@@ -12,6 +12,8 @@ import {
   Redirect,
   Link,
 } from "react-router-dom";
+import Product from "./components/Product";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -31,8 +33,12 @@ function App() {
             <Route exact path="/desktop">
               <Desktop />
             </Route>
+            <Route exact path="/product">
+              <Product />
+            </Route>
           </Switch>
         </Grid>
+        <Grid item xs={12}><Footer/></Grid>
       </Grid>
     </Router>
   );

@@ -4,9 +4,10 @@ import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, debounce, Paper, Typography } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
 import { sliderItems } from "../data";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -38,12 +39,11 @@ const Arrow = styled.div`
 
 const Wrapper = styled.div`
   box-sizing: border-box;
-  background-color: navajowhite;
   padding: 10px 0px;
   height: 100%;
   display: flex;
   transition: all 1s ease;
-  transform: translateX(${(props) => props.slideIndex * -29}vw);
+  transform: translateX(${(props) => props.slideIndex * -props.calWidth}px);
 `;
 
 const Slide = styled.div`
@@ -53,14 +53,16 @@ const Slide = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${grey["A100"]};
+  background-color: ${grey[50]};
   margin: 0px 10px;
+
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
     rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   transition: all ease-in-out 0.5s;
   &:hover {
     cursor: pointer;
+    background-color: "white";
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: scale(1.02);
     transition: all ease-in-out 0.7s;
@@ -86,7 +88,6 @@ const SlideTitle = styled.div`
 `;
 
 const SlideHidden = styled.div`
-  width: 10vw;
   height: 300px;
   display: flex;
   align-items: center;
@@ -140,6 +141,30 @@ const FooterActionWrapeer = styled.div`
 
 const ModelSlider = (props) => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [slideTerm, setSlideTerm] = useState(4);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const handleResize = debounce(() => {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    if (window.innerWidth > 1500) {
+      setSlideTerm(4);
+    } else if (window.innerWidth > 1300 && window.innerWidth < 1499) {
+      setSlideTerm(3);
+    } else {
+      setSlideTerm(1);
+    }
+  }, 500);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   //console.log(dataSet);
   const handleClick = (prop) => {
@@ -159,56 +184,61 @@ const ModelSlider = (props) => {
         </Arrow>
       )}
 
-      <Wrapper slideIndex={slideIndex}>
+      <Wrapper
+        slideIndex={slideIndex}
+        calWidth={windowSize.width > 1000 ? windowSize.width * 0.25 : 450}
+      >
+        <SlideHidden
+          style={{ width: (windowSize.width - 1228) / 2 }}
+        ></SlideHidden>
         {sliderItems.length > 0 &&
           sliderItems.map((item, index) => (
-            <Slide bg={item.bg} key={index}>
-              <SlideWrapper>
-                <SlideTitle>
-                  <Typography
-                    variant="h5"
-                    gutterBottom
-                    sx={{
-                      fontWeight: 700,
-                      fontFamily: "Noto Sans KR",
-                      color: blueGrey[900],
-                    }}
-                  >
-                    {item.title}
-                  </Typography>
-                </SlideTitle>
-                <ImgContainer>
-                  <Image src={item.img} />
-                </ImgContainer>
-
-                <ColorWrapper>
-                  {item.color.map((item2, idx) => (
-                    <>
-                      <ColorItem color={item2} id={idx} />
-                    </>
-                  ))}
-                </ColorWrapper>
-                <FooterWrapper>
-                  <FooterPriceWrapper>
-                    <Typography variant="body">
-                      {item.price.toLocaleString()}원 부터
+            <Link to="/product" style={{ textDecoration: "none" }}>
+              <Slide bg={item.bg} key={index}>
+                <SlideWrapper>
+                  <SlideTitle>
+                    <Typography
+                      variant="h5"
+                      gutterBottom
+                      sx={{
+                        fontWeight: 700,
+                        fontFamily: "Noto Sans KR",
+                        color: blueGrey[900],
+                      }}
+                    >
+                      {item.title}
                     </Typography>
-                  </FooterPriceWrapper>
-                  <FooterActionWrapeer>
-                    <Button variant="outlined">구매하기</Button>
-                  </FooterActionWrapeer>
-                </FooterWrapper>
-              </SlideWrapper>
-            </Slide>
+                  </SlideTitle>
+                  <ImgContainer>
+                    <Image src={item.img} />
+                  </ImgContainer>
+
+                  <ColorWrapper>
+                    {item.color.map((item2, idx) => (
+                      <>
+                        <ColorItem color={item2} id={idx} />
+                      </>
+                    ))}
+                  </ColorWrapper>
+                  <FooterWrapper>
+                    <FooterPriceWrapper>
+                      <Typography variant="body" sx={{ color: blueGrey[900] }}>
+                        {item.price.toLocaleString()}원 부터
+                      </Typography>
+                    </FooterPriceWrapper>
+                    <FooterActionWrapeer>
+                      <Button variant="outlined">구매하기</Button>
+                    </FooterActionWrapeer>
+                  </FooterWrapper>
+                </SlideWrapper>
+              </Slide>
+            </Link>
           ))}
       </Wrapper>
-      {slideIndex === sliderItems.length - 2 ? (
-        <></>
-      ) : (
-        <Arrow direction="right" onClick={() => handleClick("right")}>
-          <KeyboardArrowRightIcon sx={{ fontSize: 52, color: grey[100] }} />
-        </Arrow>
-      )}
+
+      <Arrow direction="right" onClick={() => handleClick("right")}>
+        <KeyboardArrowRightIcon sx={{ fontSize: 52, color: grey[100] }} />
+      </Arrow>
     </Container>
   );
 };

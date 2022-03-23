@@ -41,4 +41,18 @@ export const sliderItems = [
     color: ["grey"],
     price: 1000000,
   },
+  {
+    id: 5,
+    img: "/img/product/pc/lg/b80gv_2022.png",
+    title: "LG B80 Tower",
+    color: ["black"],
+    price: 1000000,
+  },
+  {
+    id: 6,
+    img: "/img/product/pc/lg/27v70n_2022.png",
+    title: "LG 일체형",
+    color: ["grey"],
+    price: 1000000,
+  },
 ];
