@@ -1,4 +1,4 @@
-import React, { createRef, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import RadioButtonGroup from "react-custom-radio-buttons-group";
 import { useEffect, useState } from "react";
@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { blue, blueGrey, grey, lightBlue } from "@mui/material/colors";
 import StickBox from "react-sticky-box";
-import { OptionData, OptionItemData } from "../data";
+import { OptionData } from "../data";
 
 const Container = styled.div`
   display: flex;
@@ -91,14 +91,13 @@ const OptionItem = styled.button`
     cursor: pointer;
   }
 `;
-const optionItemData = OptionItemData;
+
 const Order = () => {
   const [options, setOptions] = useState([OptionData]);
+  const OptionRef = useRef([]);
 
-  const optionRef = useRef(optionItemData.map(() => createRef()));
-
-  const handleRef = (index) => {
-    console.log(optionRef.current[index]);
+  const handleRef = (props) => {
+    console.log(OptionRef.current[props].value);
   };
 
   return (
@@ -166,28 +165,57 @@ const Order = () => {
             <Stack>
               <Divider sx={{ marginTop: 2, marginBottom: 2 }} />
             </Stack>
-            {optionItemData.map((item, index) => (
-              <OptionItemWrapper>
-                <input
-                  type="radio"
-                  name="options"
-                  ref={optionRef.current[index]}
-                  value={item.value}
-                  onClick={(e) => {
-                    console.log(e.target.value);
-                  }}
-                  style={{ display: "none" }}
-                />
+            {OptionData.map((item, index) => (
+              <OptionWrapper id={index}>
                 <Typography
+                  variant="body"
                   sx={{
                     fontWeight: 700,
                     fontFamily: "Noto Sans KR",
                     color: blueGrey[900],
                   }}
                 >
-                  {item.title}
+                  {item.groupTitle}
                 </Typography>
-              </OptionItemWrapper>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 300,
+                    fontFamily: "Noto Sans KR",
+                    color: lightBlue[700],
+                    marginTop: 1,
+                    marginBottom: 2,
+                    "&:hover": { cursor: "pointer" },
+                  }}
+                >
+                  {item.subComment}
+                </Typography>
+                {item.options.map((items, index2) => (
+                  <OptionItemWrapper id={items.index2}>
+                    <OptionItem
+                      name={items.idx}
+                      value={items.value}
+                      ref={OptionRef[index2]}
+                      // onClick={() =>
+                      //   console.log(
+                      //     item.options.map((item, index) => item.checked)
+                      //   )
+                      // }
+                      onClick={handleRef(index2)}
+                    >
+                      <Typography
+                        sx={{
+                          fontWeight: 700,
+                          fontFamily: "Noto Sans KR",
+                          color: blueGrey[900],
+                        }}
+                      >
+                        {items.title}
+                      </Typography>
+                    </OptionItem>
+                  </OptionItemWrapper>
+                ))}
+              </OptionWrapper>
             ))}
           </SelectWrapper>
         </SelectContainer>
