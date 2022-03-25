@@ -15,6 +15,7 @@ import {
 import Product from "./components/Product";
 import Footer from "./components/Footer";
 import Order from "./components/Order";
+import OrderFooter from "./components/OrderFooter";
 
 function App() {
   return (

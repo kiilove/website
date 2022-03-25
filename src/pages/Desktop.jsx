@@ -29,7 +29,6 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   background-color: whitesmoke;
-  margin-bottom: 30px;
 `;
 
 const TitleWrapper = styled.div`
@@ -61,6 +60,7 @@ const MenuItem = styled.div`
   color: ${grey[800]};
   font-size: 1.1rem;
   font-weight: 400;
+  font-family: "Noto Sans KR";
 
   &:hover {
     cursor: pointer;

@@ -222,7 +222,14 @@ const ModelSlider = (props) => {
                   </ColorWrapper>
                   <FooterWrapper>
                     <FooterPriceWrapper>
-                      <Typography variant="body" sx={{ color: blueGrey[900] }}>
+                      <Typography
+                        variant="body"
+                        sx={{
+                          color: blueGrey[700],
+                          fontFamily: "Noto Sans KR",
+                          fontSize: 18,
+                        }}
+                      >
                         {item.price.toLocaleString()}원 부터
                       </Typography>
                     </FooterPriceWrapper>

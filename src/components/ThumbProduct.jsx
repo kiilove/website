@@ -1,6 +1,6 @@
 import { Add, ShoppingBasket, CheckOutlined } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
-import { blueGrey, grey, cyan, yellow } from "@mui/material/colors";
+import { blueGrey, grey, cyan, yellow, lightBlue } from "@mui/material/colors";
 
 import React from "react";
 import styled from "styled-components";
@@ -94,8 +94,8 @@ const ThumbProduct = (props) => {
               justifyContent: "center",
               fontWeight: 400,
               fontFamily: "Noto Sans KR",
-              color: cyan[600],
-              "&:hover": { fontWeight: 700, color: cyan[700] },
+              color: lightBlue[600],
+              "&:hover": { fontWeight: 700, color: lightBlue[700] },
             }}
           >
             더 알아보기 <Add style={{ marginLeft: 10 }} />
@@ -108,8 +108,8 @@ const ThumbProduct = (props) => {
               alignItems: "center",
               fontWeight: 400,
               fontFamily: "Noto Sans KR",
-              color: cyan[600],
-              "&:hover": { fontWeight: 700, color: cyan[700] },
+              color: lightBlue[600],
+              "&:hover": { fontWeight: 700, color: lightBlue[700] },
             }}
           >
             견적받기 <CheckOutlined style={{ marginLeft: 10 }} />
