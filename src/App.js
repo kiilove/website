@@ -16,6 +16,7 @@ import Product from "./components/Product";
 import Footer from "./components/Footer";
 import Order from "./components/Order";
 import OrderFooter from "./components/OrderFooter";
+import LgGramMotion from "./pages/LgGramMotion";
 
 function App() {
   return (
@@ -40,6 +41,9 @@ function App() {
             </Route>
             <Route path="/orderPage">
               <Order />
+            </Route>
+            <Route path="/lgGram">
+              <LgGramMotion />
             </Route>
           </Switch>
         </Grid>

@@ -1,6 +1,7 @@
 import { Add, ShoppingBasket, CheckOutlined } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 import { blueGrey, grey, cyan, yellow, lightBlue } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 
 import React from "react";
 import styled from "styled-components";
@@ -86,20 +87,22 @@ const ThumbProduct = (props) => {
           {props.comment}
         </Typography>
         <MenuWrapper>
-          <Typography
-            variant="h6"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: 400,
-              fontFamily: "Noto Sans KR",
-              color: lightBlue[600],
-              "&:hover": { fontWeight: 700, color: lightBlue[700] },
-            }}
-          >
-            더 알아보기 <Add style={{ marginLeft: 10 }} />
-          </Typography>
+          <Link to={props.LinkUrl} style={{ textDecoration: "none" }}>
+            <Typography
+              variant="h6"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 400,
+                fontFamily: "Noto Sans KR",
+                color: lightBlue[600],
+                "&:hover": { fontWeight: 700, color: lightBlue[700] },
+              }}
+            >
+              더 알아보기 <Add style={{ marginLeft: 10 }} />
+            </Typography>
+          </Link>
           <Typography
             variant="h6"
             sx={{

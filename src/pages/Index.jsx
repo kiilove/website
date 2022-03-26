@@ -39,6 +39,7 @@ const Index = () => {
           title="LG gram 2022 New"
           subTitle="대화면을 어디서나 작고 가볍게"
           comment="15인치형"
+          LinkUrl="/lgGram"
           img="/img/product/laptop/lg/gram15_2022.png"
         />
 
