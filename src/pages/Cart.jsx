@@ -117,6 +117,9 @@ const CheckoutButton = styled.div`
 `;
 
 const Cart = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container>
       <Grid container>

@@ -187,3 +187,10 @@ export const RadarData = [
     syrah: 72,
   },
 ];
+
+export const MenuArray = [
+  { id: 1, title: "데스트탑", url: "/desktop" },
+  { id: 2, title: "노트북", url: "/notebook" },
+  { id: 3, title: "모니터", url: "/monitor" },
+  { id: 4, title: "악세서리", url: "/acc" },
+];

@@ -12,14 +12,18 @@ import {
   Redirect,
   Link,
 } from "react-router-dom";
-import Product from "./components/Product";
+import Product from "./pages/Product";
 import Footer from "./components/Footer";
 import Order from "./pages/Order";
 import OrderFooter from "./pages/OrderFooter";
 import LgGramMotion from "./pages/LgGramMotion";
 import Cart from "./pages/Cart";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Router>
       <Grid container>

@@ -1,10 +1,15 @@
-import { Stack } from "@mui/material";
+import { Drawer, Stack } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import jncoreWhite from "../img/logo/jncoreWhite.png";
 import { mobile } from "../responsive";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import { MenuArray } from "../data";
+import DrawMenu from "./DrawMenu";
 
 export const Container = styled.div`
   display: flex;
@@ -29,11 +34,16 @@ const MobileMenuWrapper = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  ${mobile({ display: "flex" })}
+  box-sizing: border-box;
+  ${mobile({
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "15px",
+  })}
 `;
 
 const MenuItem = styled.div`
-  width: 160px;
+  flex: 1;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -46,9 +56,29 @@ const MenuItem = styled.div`
     color: ${grey[50]};
     font-weight: 600;
   }
+  ${mobile({ flex: 1 })}
 `;
 
 const Header = () => {
+  const [menuDrawer, setMenuDrawer] = useState({
+    top: false,
+    bottom: false,
+    left: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setMenuDrawer({ ...menuDrawer, [anchor]: open });
+  };
+
+  console.log(menuDrawer);
   return (
     <Container>
       <Stack
@@ -62,14 +92,42 @@ const Header = () => {
               <img src={jncoreWhite} width="50px" />
             </MenuItem>
           </Link>
-          <Link to="/desktop" style={{ textDecoration: "none" }}>
-            <MenuItem>데스크탑</MenuItem>
+          {MenuArray.map((item, index) => (
+            <Link to={item.url} style={{ textDecoration: "none" }}>
+              <MenuItem id={item.id}>{item.title}</MenuItem>
+            </Link>
+          ))}
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <MenuItem style={{ justifyContent: "flex-end" }}>
+              <PermIdentityOutlinedIcon sx={{ fontSize: 34 }} />
+            </MenuItem>
           </Link>
         </MenuWrapper>
         <MobileMenuWrapper>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <img src={jncoreWhite} width="50px" />
-          </Link>
+          <MenuItem style={{ justifyContent: "flex-start" }}>
+            <MenuIcon onClick={toggleDrawer("top", true)} />
+
+            <Drawer
+              anchor={"top"}
+              open={menuDrawer["top"]}
+              onClose={toggleDrawer("top", false)}
+            >
+              <DrawMenu
+                anchor={"top"}
+                toggleDrawer={toggleDrawer}
+                setMenuDrawer={setMenuDrawer}
+                menuDrawer={menuDrawer}
+              />
+            </Drawer>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <img src={jncoreWhite} width="50px" />
+            </Link>
+          </MenuItem>
+          <MenuItem style={{ justifyContent: "flex-end" }}>
+            <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
+          </MenuItem>
         </MobileMenuWrapper>
       </Stack>
     </Container>

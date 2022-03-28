@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
 const LgGramMotion = () => {
-  return (
-    <div>LgGramMotion</div>
-  )
-}
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  return <div>LgGramMotion</div>;
+};
 
-export default LgGramMotion
+export default LgGramMotion;

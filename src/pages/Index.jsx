@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import ThumbProduct from "../components/ThumbProduct";
 import ThumbProductHalf from "../components/ThumbProductHalf";
@@ -34,6 +34,9 @@ const HalfWrapper = styled.div`
   ${mobile({ flexDirection: "column", padding: "0px" })}
 `;
 const Index = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container>
       <PageWrapper>

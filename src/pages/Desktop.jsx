@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   blueGrey,
   grey,
@@ -242,7 +242,9 @@ const MenuData = [
   },
 ];
 const Desktop = () => {
-  console.log(sliderItems);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container sx={{ fontFamily: "Noto Sans KR" }}>
       <Grid container>

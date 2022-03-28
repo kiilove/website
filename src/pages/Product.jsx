@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   blueGrey,
   grey,
@@ -11,7 +11,7 @@ import {
 } from "@mui/material/colors";
 import styled from "styled-components";
 import { Box, Grid, Stack, Typography } from "@mui/material";
-import ProductMiniDetail from "./ProductMiniDetail";
+import ProductMiniDetail from "../components/ProductMiniDetail";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
@@ -61,6 +61,9 @@ const MiniDetailContainer = styled.div`
   })}
 `;
 const Product = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container sx={{ fontFamily: "Noto Sans KR" }}>
       <Grid container>

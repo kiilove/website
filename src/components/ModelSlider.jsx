@@ -229,7 +229,7 @@ const AccSlider = (props) => {
                   </ColorWrapper>
                   <FooterWrapper>
                     <FooterPriceWrapper>
-                      <Typography variant="body">
+                      <Typography variant="body" sx={{ color: blueGrey[900] }}>
                         {item.price.toLocaleString()}원 부터
                       </Typography>
                     </FooterPriceWrapper>

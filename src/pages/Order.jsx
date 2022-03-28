@@ -158,6 +158,9 @@ const Order = () => {
     setTotalPrice(() => initialPrice + sumOptionsPrice);
   }, [sumOptionsPrice]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Container>
