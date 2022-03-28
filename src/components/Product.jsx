@@ -12,6 +12,7 @@ import {
 import styled from "styled-components";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import ProductMiniDetail from "./ProductMiniDetail";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
@@ -32,16 +33,32 @@ const TitleWrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  margin-top: 30px;
   box-sizing: border-box;
 `;
-
 const MiniDetailWrapper = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 30px 150px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  margin-top: 10px;
+  ${mobile({
+    marginRight: "0px",
+    flexDirection: "column",
+  })}
+`;
+const MiniDetailContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   box-sizing: border-box;
+  ${mobile({
+    marginBottom: "30px",
+  })}
 `;
 const Product = () => {
   return (
@@ -125,24 +142,17 @@ const Product = () => {
           </TitleWrapper>
         </Grid>
         <Grid item xs={12}>
-          <Stack
-            width={"100%"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            direction={"row"}
-            spacing={15}
-            marginTop={10}
-          >
-            <MiniDetailWrapper>
+          <MiniDetailWrapper>
+            <MiniDetailContainer>
               <ProductMiniDetail imgUrl="/img/product/pc/samsung/db400_2022.png" />
-            </MiniDetailWrapper>
-            <MiniDetailWrapper>
+            </MiniDetailContainer>
+            <MiniDetailContainer>
               <ProductMiniDetail imgUrl="/img/product/pc/samsung/db400_2022.png" />
-            </MiniDetailWrapper>
-            <MiniDetailWrapper>
+            </MiniDetailContainer>
+            <MiniDetailContainer>
               <ProductMiniDetail imgUrl="/img/product/pc/samsung/db400_2022.png" />
-            </MiniDetailWrapper>
-          </Stack>
+            </MiniDetailContainer>
+          </MiniDetailWrapper>
         </Grid>
       </Grid>
     </Container>

@@ -4,6 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import jncoreWhite from "../img/logo/jncoreWhite.png";
+import { mobile } from "../responsive";
 
 export const Container = styled.div`
   display: flex;
@@ -17,8 +18,18 @@ const MenuWrapper = styled.div`
   width: 100%;
   max-width: 1200px;
   height: 100%;
-  align-items: flex;
+  align-items: center;
   justify-content: space-between;
+  ${mobile({ display: "none" })}
+`;
+
+const MobileMenuWrapper = styled.div`
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  ${mobile({ display: "flex" })}
 `;
 
 const MenuItem = styled.div`
@@ -54,11 +65,12 @@ const Header = () => {
           <Link to="/desktop" style={{ textDecoration: "none" }}>
             <MenuItem>데스크탑</MenuItem>
           </Link>
-          <MenuItem>노트북</MenuItem>
-          <MenuItem>모니터</MenuItem>
-          <MenuItem>액세사리</MenuItem>
-          <MenuItem>고객지원</MenuItem>
         </MenuWrapper>
+        <MobileMenuWrapper>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <img src={jncoreWhite} width="50px" />
+          </Link>
+        </MobileMenuWrapper>
       </Stack>
     </Container>
   );

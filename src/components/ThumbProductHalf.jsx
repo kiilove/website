@@ -4,6 +4,7 @@ import { blueGrey, grey, cyan, yellow, lightBlue } from "@mui/material/colors";
 
 import React from "react";
 import styled from "styled-components";
+import { Typotext } from "../styles/Typotext";
 
 const Container = styled.div`
   background-color: white;
@@ -54,39 +55,36 @@ const ThumbProductHalf = (props) => {
   return (
     <Container>
       <ThumbWrapper>
-        <Typography
-          variant="h3"
+        <Typotext
+          size={"40px"}
           gutterBottom
-          sx={{
-            fontWeight: 600,
-            fontFamily: "Noto Sans KR",
+          style={{
+            fontWeight: 700,
             color: blueGrey[800],
           }}
         >
           {props.title}
-        </Typography>
-        <Typography
-          variant="h6"
+        </Typotext>
+        <Typotext
+          size={"25px"}
           gutterBottom
-          sx={{
+          style={{
             fontWeight: 300,
-            fontFamily: "Noto Sans KR",
             color: grey[700],
           }}
         >
           {props.subTitle}
-        </Typography>
-        <Typography
-          variant="h6"
+        </Typotext>
+        <Typotext
+          size={"20px"}
           gutterBottom
-          sx={{
+          style={{
             fontWeight: 500,
-            fontFamily: "Noto Sans KR",
             color: grey[500],
           }}
         >
           {props.comment}
-        </Typography>
+        </Typotext>
         <MenuWrapper>
           <Typography
             variant="h6"

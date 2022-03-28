@@ -4,6 +4,7 @@ import { blueGrey, grey, cyan, lightBlue } from "@mui/material/colors";
 
 import React from "react";
 import styled from "styled-components";
+import { Typotext } from "../styles/Typotext";
 
 const Container = styled.div`
   background-color: ${lightBlue[900]};
@@ -54,33 +55,33 @@ const ThumbProductHalfHelp = (props) => {
   return (
     <Container>
       <ThumbWrapper>
-        <Typography
-          variant="h3"
+        <Typotext
           gutterBottom
-          sx={{
+          size={"40px"}
+          style={{
             fontWeight: 600,
-            fontFamily: "Noto Sans KR",
             color: grey[300],
           }}
         >
           {props.title}
-        </Typography>
-        <Typography
-          variant="h6"
+        </Typotext>
+        <Typotext
+          size={"20px"}
           gutterBottom
-          sx={{
+          style={{
             fontWeight: 300,
             fontFamily: "Noto Sans KR",
             color: grey[100],
           }}
         >
           {props.subTitle}
-        </Typography>
+        </Typotext>
 
         <MenuWrapper>
-          <Typography
-            variant="h5"
-            sx={{
+          <Typotext
+            size={"25px"}
+            gutterBottom
+            style={{
               display: "flex",
               alignItems: "center",
               fontWeight: 400,
@@ -90,7 +91,7 @@ const ThumbProductHalfHelp = (props) => {
             }}
           >
             문의하기 <CheckOutlined style={{ marginLeft: 10 }} />
-          </Typography>
+          </Typotext>
         </MenuWrapper>
         <ProductImgBox src={props.img} />
       </ThumbWrapper>

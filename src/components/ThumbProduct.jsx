@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import React from "react";
 import styled from "styled-components";
+import { mobile } from "../responsive";
+import { Typotext } from "../styles/Typotext";
 
 const Container = styled.div`
   display: flex;
@@ -48,44 +50,40 @@ const ProductImgBox = styled.img`
   height: auto;
   margin-top: 20px;
   margin-bottom: 50px;
+  ${mobile({ width: "80%" })}
 `;
+
 const ThumbProduct = (props) => {
   return (
     <Container>
       <ThumbWrapper>
-        <Typography
-          variant="h3"
+        <Typotext
           gutterBottom
-          sx={{
-            fontWeight: 600,
-            fontFamily: "Noto Sans KR",
-            color: blueGrey[800],
-          }}
+          size={"40px"}
+          style={{ fontWeight: 700, color: blueGrey[800] }}
         >
           {props.title}
-        </Typography>
-        <Typography
-          variant="h5"
+        </Typotext>
+        <Typotext
+          size={"25px"}
           gutterBottom
-          sx={{
+          style={{
             fontWeight: 300,
-            fontFamily: "Noto Sans KR",
             color: grey[700],
           }}
         >
           {props.subTitle}
-        </Typography>
-        <Typography
-          variant="h6"
+        </Typotext>
+        <Typotext
+          size={"20px"}
           gutterBottom
-          sx={{
+          style={{
             fontWeight: 500,
-            fontFamily: "Noto Sans KR",
             color: grey[500],
           }}
         >
           {props.comment}
-        </Typography>
+        </Typotext>
         <MenuWrapper>
           <Link to={props.LinkUrl} style={{ textDecoration: "none" }}>
             <Typography

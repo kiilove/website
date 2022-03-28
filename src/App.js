@@ -14,9 +14,10 @@ import {
 } from "react-router-dom";
 import Product from "./components/Product";
 import Footer from "./components/Footer";
-import Order from "./components/Order";
-import OrderFooter from "./components/OrderFooter";
+import Order from "./pages/Order";
+import OrderFooter from "./pages/OrderFooter";
 import LgGramMotion from "./pages/LgGramMotion";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
             </Route>
             <Route path="/lgGram">
               <LgGramMotion />
+            </Route>
+            <Route path="/cart">
+              <Cart />
             </Route>
           </Switch>
         </Grid>

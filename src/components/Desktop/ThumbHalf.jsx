@@ -1,7 +1,9 @@
 import { Typography } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
+import { margin } from "@mui/system";
 import React from "react";
 import styled from "styled-components";
+import { mobile } from "../../responsive";
 
 const Container = styled.div`
   display: flex;
@@ -9,6 +11,7 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
   margin-right: 20px;
+  ${mobile({ marginRight: "0px", marginBottom: "10px" })}
 `;
 
 const Canvas = styled.div`
@@ -31,6 +34,12 @@ const Canvas = styled.div`
     transform: scale(1.02);
     transition: all ease-in-out 0.7s;
   }
+  ${mobile({
+    boxShadow: "none",
+    width: "100%",
+
+    border: `1px solid ${grey[300]}`,
+  })}
 `;
 
 const Wrapper = styled.div`
@@ -63,6 +72,10 @@ const ImgWrapper = styled.div`
   height: 300px;
   align-items: flex-end;
   justify-content: flex-end;
+`;
+
+const ImgBox = styled.img`
+  ${mobile({ width: "100%" })}
 `;
 
 const ThumbHalf = (props) => {
@@ -102,7 +115,7 @@ const ThumbHalf = (props) => {
                 </Typography>
               </TitleWrapper>
               <ImgWrapper>
-                <img src={props.img} width={props.imgWidth} />
+                <ImgBox src={props.img} width={props.imgWidth} />
               </ImgWrapper>
             </Wrapper>
           </Canvas>
@@ -138,7 +151,7 @@ const ThumbHalf = (props) => {
                 </Typography>
               </TitleWrapper>
               <ImgWrapper>
-                <img src={props.img} width={props.imgWidth} />
+                <ImgBox src={props.img} width={props.imgWidth} />
               </ImgWrapper>
             </Wrapper>
           </Canvas>

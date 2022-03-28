@@ -4,6 +4,8 @@ import { blueGrey, grey, cyan, yellow, lightBlue } from "@mui/material/colors";
 
 import React from "react";
 import styled from "styled-components";
+import { mobile } from "../responsive";
+import { Typotext } from "../styles/Typotext";
 
 const Container = styled.div`
   background-color: ${blueGrey[900]};
@@ -20,6 +22,7 @@ const ThumbWrapper = styled.div`
   justify-content: center;
   width: 100%;
   margin-top: 50px;
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const TypoWrapper = styled.div`
@@ -56,6 +59,7 @@ const ProductImgBox = styled.img`
   height: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+  ${mobile({ width: "80%" })}
 `;
 const ThumbProductDark = (props) => {
   return (
@@ -65,39 +69,39 @@ const ThumbProductDark = (props) => {
           <ProductImgBox src={props.img} />
         </ProductWrapper>
         <TypoWrapper>
-          <Typography
-            variant="h3"
+          <Typotext
+            size={"40px"}
             gutterBottom
-            sx={{
+            style={{
               fontWeight: 600,
-              fontFamily: "Noto Sans KR",
               color: grey[300],
+              textAlign: "center",
             }}
           >
             {props.title}
-          </Typography>
-          <Typography
-            variant="h5"
+          </Typotext>
+          <Typotext
+            size={"25px"}
             gutterBottom
-            sx={{
+            style={{
               fontWeight: 300,
-              fontFamily: "Noto Sans KR",
               color: grey[100],
+              textAlign: "center",
             }}
           >
             {props.subTitle}
-          </Typography>
-          <Typography
-            variant="h6"
+          </Typotext>
+          <Typotext
+            size={"20px"}
             gutterBottom
-            sx={{
+            style={{
               fontWeight: 500,
-              fontFamily: "Noto Sans KR",
               color: grey[500],
+              textAlign: "center",
             }}
           >
             {props.comment}
-          </Typography>
+          </Typotext>
           <MenuWrapper>
             <Typography
               variant="h6"

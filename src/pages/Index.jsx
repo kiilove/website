@@ -4,6 +4,7 @@ import ThumbProduct from "../components/ThumbProduct";
 import ThumbProductHalf from "../components/ThumbProductHalf";
 import ThumbProductDark from "../components/ThumbProductDark";
 import ThumbProductHalfHelp from "../components/ThumbProductHalfHelp";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const HalfWrapper = styled.div`
   align-items: center;
   box-sizing: border-box;
   padding: 20px;
+  ${mobile({ flexDirection: "column", padding: "0px" })}
 `;
 const Index = () => {
   return (

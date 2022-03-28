@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Button, debounce, Paper, Typography } from "@mui/material";
 import { blueGrey, grey } from "@mui/material/colors";
 import { sliderItems } from "../data";
+import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -15,6 +16,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
+  ${mobile({ overflowX: "scroll" })}
 `;
 
 const Arrow = styled.div`
@@ -35,6 +37,7 @@ const Arrow = styled.div`
   cursor: pointer;
   opacity: 0.4;
   z-index: 2;
+  ${mobile({ display: "none" })}
 `;
 
 const Wrapper = styled.div`
@@ -55,18 +58,22 @@ const Slide = styled.div`
   align-items: center;
   background-color: ${grey[50]};
   margin: 0px 10px;
-
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
     rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
   transition: all ease-in-out 0.5s;
   &:hover {
     cursor: pointer;
-    background-color: "white";
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: scale(1.02);
     transition: all ease-in-out 0.7s;
   }
+
+  ${mobile({
+    boxShadow: "none",
+    width: "330px",
+    border: `1px solid ${grey[300]}`,
+  })}
 `;
 
 const SlideWrapper = styled.div`
@@ -139,7 +146,7 @@ const FooterActionWrapeer = styled.div`
   display: flex;
 `;
 
-const ModelSlider = (props) => {
+const AccSlider = (props) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [slideTerm, setSlideTerm] = useState(4);
   const [windowSize, setWindowSize] = useState({
@@ -222,14 +229,7 @@ const ModelSlider = (props) => {
                   </ColorWrapper>
                   <FooterWrapper>
                     <FooterPriceWrapper>
-                      <Typography
-                        variant="body"
-                        sx={{
-                          color: blueGrey[700],
-                          fontFamily: "Noto Sans KR",
-                          fontSize: 18,
-                        }}
-                      >
+                      <Typography variant="body">
                         {item.price.toLocaleString()}원 부터
                       </Typography>
                     </FooterPriceWrapper>
@@ -250,4 +250,4 @@ const ModelSlider = (props) => {
   );
 };
 
-export default ModelSlider;
+export default AccSlider;
