@@ -9,9 +9,11 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   justify-content: center;
+  ${mobile({ padding: "10px" })}
 `;
 
 const PageWrapper = styled.div`

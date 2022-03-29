@@ -8,11 +8,13 @@ import { OptionData, OptionItemData, RadarData } from "../data";
 import OrderFooter from "./OrderFooter";
 import { Box } from "@mui/system";
 import CartThumbItem from "../components/Cart/CartThumbItem";
+import { Typotext } from "../styles/Typotext";
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
+  padding: 10px;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -44,6 +46,7 @@ const TitleRow = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  flex-wrap: wrap;
 `;
 
 const ItemWrapper = styled.div`
@@ -127,41 +130,38 @@ const Cart = () => {
           <TitleWrapper>
             <Stack spacing={1} mb={5}>
               <TitleRow>
-                <Typography
-                  variant="h4"
-                  sx={{
+                <Typotext
+                  size="25px"
+                  style={{
                     fontWeight: 700,
-                    fontFamily: "Noto Sans KR",
-                    color: blueGrey[900],
+                    color: blueGrey[800],
                   }}
                 >
                   장바구니에 2개 아이템을 모아뒀습니다.
-                </Typography>
+                </Typotext>
               </TitleRow>
               <TitleRow>
-                <Typography
-                  variant="h5"
-                  sx={{
+                <Typotext
+                  size="25px"
+                  style={{
                     fontWeight: 500,
-                    fontFamily: "Noto Sans KR",
                     color: blueGrey[600],
                   }}
                 >
                   결제 예정 금액은 2,980,000원 입니다.
-                </Typography>
+                </Typotext>
               </TitleRow>
               <TitleRow>
                 <CheckoutButton style={{ height: "40px" }}>
-                  <Typography
-                    sx={{
-                      fontSize: 20,
-                      fontFamily: "Noto Sans KR",
+                  <Typotext
+                    size="20px"
+                    style={{
                       fontWeight: 500,
                       letterSpacing: 10,
                     }}
                   >
                     결제
-                  </Typography>
+                  </Typotext>
                 </CheckoutButton>
               </TitleRow>
             </Stack>

@@ -13,6 +13,8 @@ import styled from "styled-components";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import ProductMiniDetail from "../components/ProductMiniDetail";
 import { mobile } from "../responsive";
+import { Typotext } from "../styles/Typotext";
+import { ModelSpec } from "../data";
 
 const Container = styled.div`
   display: flex;
@@ -38,7 +40,6 @@ const TitleWrapper = styled.div`
 const MiniDetailWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
-
   padding: 30px 150px;
   display: flex;
   justify-content: space-evenly;
@@ -56,9 +57,20 @@ const MiniDetailContainer = styled.div`
   align-items: center;
   height: 100%;
   box-sizing: border-box;
-  ${mobile({
-    marginBottom: "30px",
-  })}
+  
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+  ${mobile({ justifyContent: "center" })}
 `;
 const Product = () => {
   useEffect(() => {
@@ -69,66 +81,42 @@ const Product = () => {
       <Grid container>
         <Grid item xs={12}>
           <TitleWrapper>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                flexDirection: "column",
-                width: "100%",
-                marginTop: 1,
-              }}
-            >
-              <Typography
-                variant="h4"
+            <TitleContainer>
+              <Typotext
+                size="28px"
                 gutterBottom
-                sx={{
+                style={{
                   fontWeight: 700,
-                  fontFamily: "Noto Sans KR",
-                  color: blueGrey[700],
-                  textAlign: "center",
+                  color: blueGrey[600],
                 }}
               >
-                당신에게 맞는 삼성 데스크탑 타워형
-              </Typography>
-              <Typography
-                variant="h4"
+                당신에게 맞는 {ModelSpec[0].bigCatecory} 모델 선택을
+                도와드릴께요.
+              </Typotext>
+
+              <Typotext
+                size="28px"
                 gutterBottom
-                sx={{
+                style={{
                   fontWeight: 700,
-                  fontFamily: "Noto Sans KR",
-                  color: blueGrey[900],
-                  textAlign: "center",
+                  color: blueGrey[800],
                 }}
               >
-                모델을 선택해볼까요?
-              </Typography>
-              <Typography
-                variant="h5"
+                {ModelSpec[0].modelName}
+              </Typotext>
+              <Typotext
+                size="20px"
                 gutterBottom
-                sx={{
-                  fontWeight: 700,
-                  fontFamily: "Noto Sans KR",
-                  color: blueGrey[900],
-                  textAlign: "center",
-                  marginTop: 5,
-                }}
-              >
-                삼성 DB400 Tower
-              </Typography>
-              <Typography
-                variant="body"
-                gutterBottom
-                sx={{
+                style={{
                   fontWeight: 500,
                   fontFamily: "Noto Sans KR",
                   color: blueGrey[900],
                   textAlign: "center",
-                  marginTop: 3,
+                  marginTop: "30px",
                 }}
               >
-                삼성 데스크탑 구입과 관련한 점이 있으신가요?
-              </Typography>
+                혹시 선택이 어렵다면?
+              </Typotext>
               <Typography
                 variant="body"
                 gutterBottom
@@ -139,21 +127,15 @@ const Product = () => {
                   textAlign: "center",
                 }}
               >
-                상담예약하세요.
+                전화주세요!
               </Typography>
-            </Box>
+            </TitleContainer>
           </TitleWrapper>
         </Grid>
         <Grid item xs={12}>
           <MiniDetailWrapper>
             <MiniDetailContainer>
-              <ProductMiniDetail imgUrl="/img/product/pc/samsung/db400_2022.png" />
-            </MiniDetailContainer>
-            <MiniDetailContainer>
-              <ProductMiniDetail imgUrl="/img/product/pc/samsung/db400_2022.png" />
-            </MiniDetailContainer>
-            <MiniDetailContainer>
-              <ProductMiniDetail imgUrl="/img/product/pc/samsung/db400_2022.png" />
+              <ProductMiniDetail category={"gram_15_22H1"} />
             </MiniDetailContainer>
           </MiniDetailWrapper>
         </Grid>

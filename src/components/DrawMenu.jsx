@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import jncoreWhite from "../img/logo/jncoreWhite.png";
 import { MenuArray } from "../data";
-import { Divider, Stack, Typography } from "@mui/material";
+import { Divider, Stack, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 import { Box } from "@mui/system";
@@ -52,6 +52,7 @@ const DrawMenu = ({ anchor, toggleDrawer }) => {
               justifyContent: "flex-start",
               alignItems: "center",
               flex: 1,
+              "&:hover": { cursor: "pointer" },
             }}
           >
             <HighlightOffOutlinedIcon
@@ -99,7 +100,7 @@ const DrawMenu = ({ anchor, toggleDrawer }) => {
               flex: 1,
             }}
           >
-            <input
+            {/* <input
               type="text"
               placeholder="검색"
               style={{
@@ -113,6 +114,38 @@ const DrawMenu = ({ anchor, toggleDrawer }) => {
                 padding: "5px",
                 "&:focus": { border: "none", outline: "none" },
                 "::-webkit-input-placeholder": { color: "white" },
+              }}/> */}
+            <TextField
+              fullWidth
+              inputProps={{
+                placeholder: "검색",
+                style: {
+                  color: grey[100],
+                },
+              }}
+              sx={{
+                "& .MuiInputBase-input": {
+                  color: "white",
+                  borderRadius: "20px",
+                  fontSize: "15px",
+                  borderColor: "red",
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: grey[800],
+                    borderRadius: "20px",
+                  },
+                  "&:hover": {
+                    "& fieldset": {
+                      borderColor: grey[700],
+                    },
+                  },
+                },
+                "& .MuiOutlinedInput-root.Mui-focused": {
+                  "& fieldset": {
+                    borderColor: grey[600],
+                  },
+                },
               }}
             />
           </Box>

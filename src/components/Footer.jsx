@@ -2,14 +2,16 @@ import { Divider, Stack, Typography } from "@mui/material";
 import { blueGrey, grey, lightBlue } from "@mui/material/colors";
 import React from "react";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 const Container = styled.div`
   display: flex;
   background-color: ${grey[100]};
-
+  box-sizing: border-box;
   justify-content: center;
   align-items: center;
   width: 100%;
   font-family: "Noto Sans KR";
+  ${mobile({ padding: "10px" })}
 `;
 
 const Wrapper = styled.div`

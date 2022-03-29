@@ -31,6 +31,7 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   background-color: whitesmoke;
+  ${mobile({ padding: "10px" })}
 `;
 
 const TitleWrapper = styled.div`

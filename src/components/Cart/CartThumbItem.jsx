@@ -8,21 +8,22 @@ import KeyboardArrowDownSharpIcon from "@mui/icons-material/KeyboardArrowDownSha
 import KeyboardArrowUpSharpIcon from "@mui/icons-material/KeyboardArrowUpSharp";
 import { Box } from "@mui/system";
 import { mobile } from "../../responsive";
+import { Typotext } from "../../styles/Typotext";
 
 const Container = styled.div`
   display: flex;
   box-sizing: border-box;
   width: 100%;
   justify-content: center;
+  box-sizing: border-box;
+
   align-items: center;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  box-sizing: border-box;
   width: 100%;
   height: auto;
-  padding: 10px;
   justify-content: flex-start;
   align-items: flex-start;
   ${mobile({
@@ -41,32 +42,71 @@ const ImgWrapper = styled.div`
   ${mobile({ justifyContent: "center", alignItems: "center" })}
 `;
 
-const InfoWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  box-sizing: border-box;
+const ImgBox = styled.img`
+  ${mobile({ width: "50%" })}
 `;
 
-const InfoTitleWrapper = styled.div`
+const TextWrapper = styled.div`
   display: flex;
   width: 100%;
-  justify-content: center;
-  align-items: flex-start;
-  ${mobile({ flexDirection: "column", alignItems: "center" })}
+  ${mobile({ flexDirection: "column" })}
 `;
-const InfoTitleItem = styled.div`
+
+const InfoContainer = styled.div`
   display: flex;
-  flex: ${(props) => props.flex};
-  justify-content: center;
-  align-items: center;
+  flex: 4;
   flex-direction: column;
+`;
+
+const InfoRow = styled.div`
+  display: flex;
+  ${mobile({ flexDirection: "column", margin: "10px 0px" })}
+`;
+
+const ModelNameWrapper = styled.div`
+  display: flex;
+  flex: 4;
+  align-items: center;
   justify-content: flex-start;
-  align-items: flex-start;
+  ${mobile({ flex: 1, alignItems: "flex-start", justifyContent: "center" })}
+`;
+const QuantityWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+  ${mobile({ flex: 1, alignItems: "flex-start", justifyContent: "center" })}
 `;
 
+const ArrowIconWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const PriceContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+`;
+
+const PriceRow = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  ${mobile({ flexDirection: "column", justifyContent: "center" })}
+`;
+
+const PriceNumWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const PriceDelWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
 const ExpanedWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -74,11 +114,15 @@ const ExpanedWrapper = styled.div`
   justify-content: flex-start;
   width: 100%;
   box-sizing: border-box;
-  margin-left: 20px;
+  margin-left: 10px;
 `;
 
 const ExpandIcon = styled.div`
   cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  ${mobile({ flex: 1, alignItems: "center", justifyContent: "center" })}
 `;
 const InputWrapper = styled.div`
   display: flex;
@@ -112,29 +156,45 @@ const CartThumbItem = () => {
     <Container>
       <Wrapper>
         <ImgWrapper>
-          <img src="/img/product/pc/samsung/db400_2022.png" width="180px" />
+          <ImgBox src="/img/product/pc/samsung/db400_2022.png" width="180px" />
         </ImgWrapper>
-        <InfoWrapper>
-          <InfoTitleWrapper>
-            <InfoTitleItem flex="4">
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: 500,
-                  fontFamily: "Noto Sans KR",
-                  color: blueGrey[900],
-                  mb: 2,
-                }}
-              >
-                삼성 DB400 Tower
-              </Typography>
-              <Typography
-                variant="body"
-                sx={{ color: lightBlue[700] }}
+        <TextWrapper>
+          <InfoContainer>
+            <InfoRow>
+              <ModelNameWrapper>
+                <Typotext
+                  size="25px"
+                  style={{ color: blueGrey[800], fontWeight: 500 }}
+                >
+                  Samsung DB400 타워형 데스크탑
+                </Typotext>
+              </ModelNameWrapper>
+              <QuantityWrapper>
+                <InputWrapper>
+                  <InputBase
+                    inputProps={{ maxLength: 3 }}
+                    sx={{ width: 30 }}
+                    variant="standard"
+                  />
+                </InputWrapper>
+                <ArrowIconWrapper>
+                  <IconButton style={{ marginBottom: "3px" }}>
+                    <KeyboardArrowUpSharpIcon sx={{ fontSize: 12 }} />
+                  </IconButton>
+                  <IconButton>
+                    <KeyboardArrowDownSharpIcon sx={{ fontSize: 12 }} />
+                  </IconButton>
+                </ArrowIconWrapper>
+              </QuantityWrapper>
+            </InfoRow>
+            <InfoRow>
+              <Typotext
+                size="15px"
+                style={{ color: lightBlue[700], fontWeight: 300 }}
                 onClick={() => setExpaned(!expaned)}
               >
                 <ExpandIcon>
-                  제품 정보 자세히보기
+                  자세한 스펙
                   {expaned ? (
                     <FontAwesomeIcon
                       icon={solid("angle-up")}
@@ -149,7 +209,9 @@ const CartThumbItem = () => {
                     />
                   )}
                 </ExpandIcon>
-              </Typography>
+              </Typotext>
+            </InfoRow>
+            <InfoRow>
               <Collapse in={expaned} timeout="auto" unmountOnExit>
                 <ExpanedWrapper>
                   <Typography variant="body" sx={{ marginTop: 1 }}>
@@ -178,60 +240,35 @@ const CartThumbItem = () => {
                   </Typography>
                 </ExpanedWrapper>
               </Collapse>
-            </InfoTitleItem>
-            <InfoTitleItem flex="1" style={{ flexDirection: "row" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                  height: "100%",
-                }}
-              >
-                <InputWrapper>
-                  <InputBase
-                    inputProps={{ maxLength: 3 }}
-                    sx={{ width: 30 }}
-                    variant="standard"
-                  />
-                </InputWrapper>
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                  height: "100%",
-                  ml: 1,
-                }}
-              >
-                <IconButton style={{ marginBottom: "3px" }}>
-                  <KeyboardArrowUpSharpIcon sx={{ fontSize: 12 }} />
-                </IconButton>
-                <IconButton>
-                  <KeyboardArrowDownSharpIcon sx={{ fontSize: 12 }} />
-                </IconButton>
-              </Box>
-            </InfoTitleItem>
-            <InfoTitleItem flex="1" style={{ alignItems: "flex-end" }}>
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: 500,
-                  fontFamily: "Noto Sans KR",
-                  color: blueGrey[900],
-                  mb: 2,
-                }}
-              >
-                1,350,000원
-              </Typography>
-              <Typography variant="body" onClick={() => setExpaned(!expaned)}>
-                삭제
-              </Typography>
-            </InfoTitleItem>
-          </InfoTitleWrapper>
-        </InfoWrapper>
+            </InfoRow>
+          </InfoContainer>
+          <PriceContainer>
+            <PriceRow>
+              <PriceNumWrapper>
+                <Typotext
+                  size="25px"
+                  style={{
+                    fontWeight: 500,
+                    color: blueGrey[800],
+                  }}
+                >
+                  1,350,000원
+                </Typotext>
+              </PriceNumWrapper>
+            </PriceRow>
+            <PriceRow>
+              <PriceDelWrapper>
+                <Typotext
+                  size="15px"
+                  style={{ color: lightBlue[700], fontWeight: 300 }}
+                  onClick={() => setExpaned(!expaned)}
+                >
+                  삭제
+                </Typotext>
+              </PriceDelWrapper>
+            </PriceRow>
+          </PriceContainer>
+        </TextWrapper>
       </Wrapper>
     </Container>
   );
