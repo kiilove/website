@@ -44,7 +44,7 @@ function App() {
             <Route path="/product">
               <Product />
             </Route>
-            <Route path="/orderPage">
+            <Route path="/orderPage/:modelId/:modelPrice">
               <Order />
             </Route>
             <Route path="/lgGram">

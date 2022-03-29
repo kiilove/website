@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { debounce, Divider, Stack, Typography } from "@mui/material";
 import { blueGrey, grey, lightBlue } from "@mui/material/colors";
 import StickBox from "react-sticky-box";
-import { OptionData, OptionItemData, RadarData } from "../data";
+import { ModelSpec, OptionData, OptionItemData, RadarData } from "../data";
 import OrderFooter from "./OrderFooter";
 import { Box } from "@mui/system";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { mobile } from "../responsive";
+import { useParams } from "react-router-dom";
+import { Typotext } from "../styles/Typotext";
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +51,26 @@ const ImgBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+`;
+
+const SpecWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  margin-top: 20px;
+  margin-left: 10px;
+`;
+const SpecItem = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 30px;
+  width: 100%;
 `;
 const SelectContainer = styled.div`
   display: flex;
@@ -124,11 +146,15 @@ const BottomMenuWrapper = styled.div`
 `;
 
 const optionItemData = OptionItemData;
-const initialPrice = 1000000;
 const optionData = OptionData;
 const Order = () => {
+  const { modelId, modelPrice } = useParams();
+  const modelSpec = ModelSpec.filter(
+    (model) => model.id === Number(modelId)
+  ).slice(0, 1);
+  const [initialPrice, setInitialPrice] = useState(() => Number(modelPrice));
   const [optionsObj, setOptionsObj] = useState({ options_1: 0 });
-  const [totalPrice, setTotalPrice] = useState(initialPrice);
+  const [totalPrice, setTotalPrice] = useState(() => Number(modelPrice));
   const [sumOptionsPrice, setSumOptionsPrice] = useState(0);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
@@ -161,14 +187,16 @@ const Order = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <>
+      {modelPrice}
       <Container>
         <Wrapper>
           <ImgContainer>
             <StickBox offsetTop={20} offsetBottom={20}>
               <ImgBox>
-                <img src="/img/product/pc/lg/b80gv_2022.png" width="280px" />
+                <img src={modelSpec[0].img} width="280px" />
               </ImgBox>
               <Box
                 sx={{
@@ -203,7 +231,7 @@ const Order = () => {
                   color: blueGrey[900],
                 }}
               >
-                LG Tower B60GV
+                {modelSpec[0].modelName}
               </Typography>
               <Typography
                 variant="h4"
@@ -217,30 +245,22 @@ const Order = () => {
                 사용자 맞춤 구성하기
               </Typography>
 
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                Intel Core i5 10400
-              </Typography>
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                DDR4 8G 메모리
-              </Typography>
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                256G SSD(NVMe) 저장공간
-              </Typography>
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                1TB HDD(SATA) 추가 저장공간
-              </Typography>
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                Intel Graphic GPU
-              </Typography>
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                DVD Super Multi Drive
-              </Typography>
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                108키 한영 키보드 / USB 마우스
-              </Typography>
-              <Typography variant="body" sx={{ marginTop: 1 }}>
-                USB 2.0 포트 2개, USB 3.0 포트 4개
-              </Typography>
+              <SpecWrapper>
+                {modelSpec[0].spec.map((item, index) => (
+                  <SpecItem key={index}>
+                    <Typotext
+                      size="15px"
+                      style={{
+                        fontWeight: 300,
+                        color: blueGrey[800],
+                        marginLeft: "10px",
+                      }}
+                    >
+                      {item.title}
+                    </Typotext>
+                  </SpecItem>
+                ))}
+              </SpecWrapper>
 
               <Stack>
                 <Divider sx={{ marginTop: 2, marginBottom: 2 }} />

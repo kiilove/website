@@ -190,7 +190,10 @@ const ProductMiniDetail = (props) => {
                 </SpecItem>
               </SpecWrapper>
               <ActionWrapper>
-                <Link to="/orderPage" style={{ textDecoration: "none" }}>
+                <Link
+                  to={`/orderPage/${item.id}/${item.price}`}
+                  style={{ textDecoration: "none" }}
+                >
                   <SelectButton>선택</SelectButton>
                 </Link>
               </ActionWrapper>

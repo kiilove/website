@@ -204,7 +204,7 @@ export const ModelSpec = [
     bigCatecory: "LG 노트북",
     category: "gram_15_22H1",
     modelName: "15인치 그램 2022년",
-    medleCode: "15Z95N-G.AP55ML",
+    modelCode: "15Z95N-G.AP55ML",
     price: 1650000,
     spec: [
       {
@@ -314,7 +314,7 @@ export const ModelSpec = [
     color: [{ id: 1, code: "white", title: "화이트" }],
     category: "gram_15_22H1",
     modelName: "15인치 그램 2022년",
-    medleCode: "15Z95N-G.AP79ML",
+    modelCode: "15Z95N-G.AP79ML",
     price: 1900000,
     spec: [
       {
@@ -424,7 +424,7 @@ export const ModelSpec = [
     color: [{ id: 1, code: "white", title: "화이트" }],
     category: "gram_15_22H1",
     modelName: "15인치 그램 2022년",
-    medleCode: "15Z95N-G.AP79ML-CTO",
+    modelCode: "15Z95N-G.AP79ML-CTO",
     price: 2100000,
     spec: [
       {
