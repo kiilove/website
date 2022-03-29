@@ -293,13 +293,13 @@ export const ModelSpec = [
           { idx: 21, title: "다음에 고려(기본)", value: 0, checked: true },
           {
             idx: 22,
-            title: "최종 756G SSD(500G 추가)",
+            title: "500G SSD (추가장착)",
             value: 80000,
             checked: false,
           },
           {
             idx: 23,
-            title: "최종 1.2TB SSD(1TB 추가)",
+            title: "1TB SSD (추가장착)",
             value: 210000,
             checked: false,
           },

@@ -153,7 +153,8 @@ const Order = () => {
     (model) => model.id === Number(modelId)
   ).slice(0, 1);
   const [initialPrice, setInitialPrice] = useState(() => Number(modelPrice));
-  const [optionsObj, setOptionsObj] = useState([]);
+  const [optionsObj, setOptionsObj] = useState({ options_1: 0 });
+  const [optionsObjId, setOptionsObjId] = useState({ options_1_id: 0 });
   const [totalPrice, setTotalPrice] = useState(() => Number(modelPrice));
   const [sumOptionsPrice, setSumOptionsPrice] = useState(0);
   const [windowSize, setWindowSize] = useState({
@@ -165,13 +166,13 @@ const Order = () => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
   }, 500);
 
-  // const calOptionsPrice = () => {
-  //   setSumOptionsPrice(() => Object.values(optionsObj).reduce((a, b) => a + b));
-  // };
+  const calOptionsPrice = () => {
+    setSumOptionsPrice(() => Object.values(optionsObj).reduce((a, b) => a + b));
+  };
 
-  // useEffect(() => {
-  //   calOptionsPrice();
-  // }, [optionsObj]);
+  useEffect(() => {
+    calOptionsPrice();
+  }, [optionsObj]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -301,17 +302,10 @@ const Order = () => {
                         style={{ display: "none" }}
                         defaultChecked={idx === 0}
                         onChange={(e) => {
-                          const optName = "options_" + item.id;
-                          setOptionsObj([
+                          setOptionsObj({
                             ...optionsObj,
-                            (optionsObj[idx] = [
-                              {
-                                refId: option.idx,
-                                value: option.value,
-                              },
-                            ]),
-                          ]);
-                          //console.log(optionsObj[optName].refId);
+                            ["options_" + item.id]: Number(e.target.value),
+                          });
                         }}
                       />
                       <OptionItem htmlFor={`options_${option.idx}`}>

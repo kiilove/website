@@ -40,11 +40,9 @@ const TitleWrapper = styled.div`
 const MiniDetailWrapper = styled.div`
   width: 100%;
   box-sizing: border-box;
-  padding: 30px 150px;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
-
+  justify-content: center;
   margin-top: 10px;
   ${mobile({
     marginRight: "0px",
@@ -55,9 +53,10 @@ const MiniDetailContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 1200px;
   height: 100%;
   box-sizing: border-box;
-  
 `;
 
 const TitleContainer = styled.div`

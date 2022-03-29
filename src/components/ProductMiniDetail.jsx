@@ -13,13 +13,19 @@ import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
-  width: 1200px;
+  flex-wrap: wrap;
+  width: 100% !important;
   justify-content: space-evenly;
+  box-sizing: border-box;
+
   ${mobile({
     width: "100%",
+    height: "100%",
     marginRight: "0px",
     justifyContent: "center",
+    alignItems: "center",
     flexDirection: "column",
+    padding: "10px",
   })}
 `;
 const Wrapper = styled.div`
@@ -28,9 +34,19 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 300px;
+  box-sizing: border-box;
   height: 100%;
+  padding: 20px;
+
   ${mobile({
+    width: "100%",
+    margin: "0px",
     marginBottom: "30px",
+    borderRadius: "22px",
+    border: `1px solid ${grey[300]}`,
+    padding: "20px",
+    boxShadow:
+      "rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset",
   })}
 `;
 
@@ -46,11 +62,12 @@ const ColorWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   width: 100%;
   height: 100px;
   margin-top: 20px;
   margin-left: 10px;
+  ${mobile({ justifyContent: "center", alignItems: "center" })}
 `;
 
 const SpecWrapper = styled.div`
@@ -64,6 +81,7 @@ const SpecWrapper = styled.div`
   box-sizing: border-box;
   margin-top: 20px;
   margin-left: 10px;
+  ${mobile({ justifyContent: "center", alignItems: "center" })}
 `;
 const SpecItem = styled.div`
   display: flex;
@@ -71,6 +89,7 @@ const SpecItem = styled.div`
   align-items: center;
   height: 30px;
   width: 100%;
+  ${mobile({ justifyContent: "center", alignItems: "center" })}
 `;
 
 const ActionWrapper = styled.div`
@@ -87,10 +106,11 @@ const ActionWrapper = styled.div`
 const FavoriteWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 90%;
 
   box-sizing: border-box;
   margin-top: 20px;
+  ${mobile({ marginTop: "5px", width: "60%" })}
 `;
 
 const ColorItem = styled.div`
@@ -150,15 +170,14 @@ const ProductMiniDetail = (props) => {
                   <SpecItem key={index}>
                     {item.isThumb ? (
                       <Typotext
-                        size="15px"
+                        size="20px"
                         style={{
-                          fontWeight: 500,
-                          fontSize: "20px",
+                          fontWeight: 700,
                           color: blueGrey[800],
-                          marginBottom: "20px",
+                          marginBottom: "30px",
                         }}
                       >
-                        {item.title}
+                        {item.title} {item.titleComment}
                       </Typotext>
                     ) : (
                       <Typotext
@@ -218,80 +237,6 @@ const ProductMiniDetail = (props) => {
                       />
                     </IconButton>
                   </Box>
-                </Stack>
-              </FavoriteWrapper>
-              <FavoriteWrapper>
-                <Stack direction={"row"} justifyContent={"space-between"}>
-                  <Stack>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "30px",
-                      }}
-                    >
-                      <Box>
-                        <ShoppingCartOutlinedIcon
-                          sx={{
-                            fontWeight: "light",
-                            color: lightBlue[700],
-                          }}
-                        />
-                      </Box>
-                      <Box sx={{ display: "flex" }}>
-                        <Box>
-                          <Typography variant="body2" sx={{ marginLeft: 1 }}>
-                            재고:
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography variant="body2" sx={{ marginLeft: 1 }}>
-                            구매가능
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Stack>
-                </Stack>
-              </FavoriteWrapper>
-              <FavoriteWrapper>
-                <Stack direction={"row"} justifyContent={"space-between"}>
-                  <Stack>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "30px",
-                      }}
-                    >
-                      <Box>
-                        <HomeWorkOutlinedIcon
-                          sx={{
-                            fontWeight: "light",
-                            color: lightBlue[700],
-                          }}
-                        />
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                        }}
-                      >
-                        <Box>
-                          <Typography variant="body2" sx={{ marginLeft: 1 }}>
-                            도착:
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography variant="body2" sx={{ marginLeft: 1 }}>
-                            2022-03-30 ~ 2022-03-30
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Stack>
                 </Stack>
               </FavoriteWrapper>
             </Wrapper>
