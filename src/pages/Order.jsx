@@ -149,13 +149,12 @@ const optionItemData = OptionItemData;
 const optionData = OptionData;
 const Order = () => {
   const { modelId, modelPrice } = useParams();
-  const modelSpec = ModelSpec.filter(
-    (model) => model.id === Number(modelId)
-  ).slice(0, 1);
   const [initialPrice, setInitialPrice] = useState(() => Number(modelPrice));
   const [optionsObj, setOptionsObj] = useState([]);
   const [totalPrice, setTotalPrice] = useState(() => Number(modelPrice));
   const [sumOptionsPrice, setSumOptionsPrice] = useState(0);
+  const [initialModelInfo, setInitialModelInfo] = useState([]);
+  const [orderModelInfo, setOrderModelInfo] = useState({});
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -164,6 +163,27 @@ const Order = () => {
   const handleResize = debounce(() => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
   }, 500);
+
+  const initModelInfo = () => {
+    if (initialModelInfo.length > 0) {
+      setOrderModelInfo({
+        ...orderModelInfo,
+        id: 1,
+        refModelId: initialModelInfo[0].id,
+        options: [{ id: 1, refId: 0, value: 0 }],
+        basePrice: initialPrice,
+        optionPrice: sumOptionsPrice,
+      });
+    }
+  };
+
+  const controlOrderInfo = ({ index, optId, optValue }) => {
+    // setOrderModelInfo({
+    //   ...orderModelInfo,
+    //   option: ([index] = { id: optId, value: optValue }),
+    // });
+    console.log(index);
+  };
 
   // const calOptionsPrice = () => {
   //   setSumOptionsPrice(() => Object.values(optionsObj).reduce((a, b) => a + b));
@@ -188,168 +208,188 @@ const Order = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    setInitialModelInfo(
+      ModelSpec.filter((model) => model.id === Number(modelId)).slice(0, 1)
+    );
+  }, [modelId]);
+
+  useEffect(() => {
+    initModelInfo();
+  }, [initialModelInfo]);
+
   console.log(optionsObj);
+
   return (
     <>
       <Container>
-        <Wrapper>
-          <ImgContainer>
-            <StickBox offsetTop={20} offsetBottom={20}>
-              <ImgBox>
-                <img src={modelSpec[0].img} width="280px" />
-              </ImgBox>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                  marginY: 3,
-                  color: lightBlue[900],
-                }}
-              >
-                갤러리보기
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  width: "100%",
-                  marginY: 3,
-                  color: lightBlue[900],
-                }}
-              ></Box>
-            </StickBox>
-          </ImgContainer>
-          <SelectContainer>
-            <SelectWrapper>
-              <Typography
-                variant="h4"
-                gutterBottom
-                sx={{
-                  fontWeight: 700,
-                  fontFamily: "Noto Sans KR",
-                  color: blueGrey[900],
-                }}
-              >
-                {modelSpec[0].modelName}
-              </Typography>
-              <Typography
-                variant="h4"
-                gutterBottom
-                sx={{
-                  fontWeight: 400,
-                  fontFamily: "Noto Sans KR",
-                  color: blueGrey[900],
-                }}
-              >
-                사용자 맞춤 구성하기
-              </Typography>
+        {initialModelInfo[0] && (
+          <>
+            <Wrapper>
+              {JSON.stringify(orderModelInfo)}
+              {JSON.stringify(optionsObj)}
 
-              <SpecWrapper>
-                {modelSpec[0].spec.map((item, index) => (
-                  <SpecItem key={index}>
-                    <Typotext
-                      size="15px"
-                      style={{
-                        fontWeight: 300,
-                        color: blueGrey[800],
-                        marginLeft: "10px",
-                      }}
-                    >
-                      {item.title}
-                    </Typotext>
-                  </SpecItem>
-                ))}
-              </SpecWrapper>
-
-              <Stack>
-                <Divider sx={{ marginTop: 2, marginBottom: 2 }} />
-              </Stack>
-
-              {modelSpec[0].options.map((item, index) => (
-                <OptionWrapper id={index}>
+              <ImgContainer>
+                <StickBox offsetTop={20} offsetBottom={20}>
+                  <ImgBox>
+                    <img src={initialModelInfo[0].img} width="280px" />
+                  </ImgBox>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                      marginY: 3,
+                      color: lightBlue[900],
+                    }}
+                  >
+                    갤러리보기
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "100%",
+                      marginY: 3,
+                      color: lightBlue[900],
+                    }}
+                  ></Box>
+                </StickBox>
+              </ImgContainer>
+              <SelectContainer>
+                <SelectWrapper>
                   <Typography
-                    variant="body"
+                    variant="h4"
+                    gutterBottom
                     sx={{
                       fontWeight: 700,
                       fontFamily: "Noto Sans KR",
                       color: blueGrey[900],
                     }}
                   >
-                    {item.groupTitle}
+                    {initialModelInfo[0].modelName}
                   </Typography>
                   <Typography
-                    variant="body2"
+                    variant="h4"
+                    gutterBottom
                     sx={{
-                      fontWeight: 300,
+                      fontWeight: 400,
                       fontFamily: "Noto Sans KR",
-                      color: lightBlue[700],
-                      marginTop: 1,
-                      marginBottom: 2,
-                      "&:hover": { cursor: "pointer" },
+                      color: blueGrey[900],
                     }}
                   >
-                    {item.subComment}
+                    사용자 맞춤 구성하기
                   </Typography>
-                  {item.options.map((option, idx) => (
-                    <OptionItemWrapper>
-                      <input
-                        type="radio"
-                        id={`options_${option.idx}`}
-                        name={`options_${item.id}`}
-                        value={option.value}
-                        style={{ display: "none" }}
-                        defaultChecked={idx === 0}
-                        onChange={(e) => {
-                          const optName = "options_" + item.id;
-                          setOptionsObj([
-                            ...optionsObj,
-                            (optionsObj[idx] = [
-                              {
-                                refId: option.idx,
-                                value: option.value,
-                              },
-                            ]),
-                          ]);
-                          //console.log(optionsObj[optName].refId);
+
+                  <SpecWrapper>
+                    {initialModelInfo[0].spec.map((item, index) => (
+                      <SpecItem key={index}>
+                        <Typotext
+                          size="15px"
+                          style={{
+                            fontWeight: 300,
+                            color: blueGrey[800],
+                            marginLeft: "10px",
+                          }}
+                        >
+                          {item.title}
+                        </Typotext>
+                      </SpecItem>
+                    ))}
+                  </SpecWrapper>
+
+                  <Stack>
+                    <Divider sx={{ marginTop: 2, marginBottom: 2 }} />
+                  </Stack>
+
+                  {initialModelInfo[0].options.map((item, index) => (
+                    <OptionWrapper id={index}>
+                      <Typography
+                        variant="body"
+                        sx={{
+                          fontWeight: 700,
+                          fontFamily: "Noto Sans KR",
+                          color: blueGrey[900],
                         }}
-                      />
-                      <OptionItem htmlFor={`options_${option.idx}`}>
-                        {option.title} + {Number(option.value).toLocaleString()}
-                        원
-                      </OptionItem>
-                    </OptionItemWrapper>
+                      >
+                        {item.groupTitle}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontWeight: 300,
+                          fontFamily: "Noto Sans KR",
+                          color: lightBlue[700],
+                          marginTop: 1,
+                          marginBottom: 2,
+                          "&:hover": { cursor: "pointer" },
+                        }}
+                      >
+                        {item.subComment}
+                      </Typography>
+                      {item.options.map((option, idx) => (
+                        <OptionItemWrapper>
+                          <input
+                            type="radio"
+                            id={`options_${option.idx}`}
+                            name={`options_${item.id}`}
+                            value={option.value}
+                            style={{ display: "none" }}
+                            defaultChecked={idx === 0}
+                            // onChange={(e) => {
+                            //   setOptionsObj([
+                            //     ...optionsObj,
+                            //     ["options_" + item.id]: Number(e.target.value),
+                            //   ]);
+                            // }}
+                            onClick={(e) => {
+                              
+                              const newOption = [
+                                ...orderModelInfo.options,
+                                { ...orderModelInfo.options[item.id] },
+                              ];
+
+                              console.log(newOption);
+                            }}
+                          />
+                          <OptionItem htmlFor={`options_${option.idx}`}>
+                            {option.title} +{" "}
+                            {Number(option.value).toLocaleString()}원
+                          </OptionItem>
+                        </OptionItemWrapper>
+                      ))}
+                    </OptionWrapper>
                   ))}
-                </OptionWrapper>
-              ))}
-            </SelectWrapper>
-          </SelectContainer>
-        </Wrapper>
-        <Stack width={"100%"} sx={{ marginY: 2 }}>
-          <Divider />
-        </Stack>
-        <InfoWrapper>
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              marginY: 5,
-            }}
-          >
-            <Typography
-              variant="h3"
-              sx={{ fontFamily: "Noto Sans KR", fontWeight: 500 }}
-            >
-              제품 규격
-            </Typography>
-          </Box>
-          <DetailImgBox
-            src="/img/product/pc/lg/b80gv_2022_info.png"
-            width="900px"
-          />
-        </InfoWrapper>
-        <OrderFooter totalPrice={totalPrice} />
+                </SelectWrapper>
+              </SelectContainer>
+            </Wrapper>
+            <Stack width={"100%"} sx={{ marginY: 2 }}>
+              <Divider />
+            </Stack>
+            <InfoWrapper>
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                  marginY: 5,
+                }}
+              >
+                <Typography
+                  variant="h3"
+                  sx={{ fontFamily: "Noto Sans KR", fontWeight: 500 }}
+                >
+                  제품 규격
+                </Typography>
+              </Box>
+              <DetailImgBox
+                src="/img/product/pc/lg/b80gv_2022_info.png"
+                width="900px"
+              />
+            </InfoWrapper>
+            <OrderFooter totalPrice={totalPrice} />
+          </>
+        )}
       </Container>
     </>
   );

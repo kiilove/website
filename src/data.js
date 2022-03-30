@@ -155,39 +155,6 @@ export const OptionData = [
   },
 ];
 
-export const RadarData = [
-  {
-    taste: "fruity",
-    chardonay: 117,
-    carmenere: 27,
-    syrah: 64,
-  },
-  {
-    taste: "bitter",
-    chardonay: 32,
-    carmenere: 48,
-    syrah: 21,
-  },
-  {
-    taste: "heavy",
-    chardonay: 31,
-    carmenere: 110,
-    syrah: 38,
-  },
-  {
-    taste: "strong",
-    chardonay: 50,
-    carmenere: 88,
-    syrah: 102,
-  },
-  {
-    taste: "sunny",
-    chardonay: 44,
-    carmenere: 54,
-    syrah: 72,
-  },
-];
-
 export const MenuArray = [
   { id: 1, title: "데스트탑", url: "/desktop" },
   { id: 2, title: "노트북", url: "/notebook" },
@@ -380,15 +347,15 @@ export const ModelSpec = [
         groupTitle: "저장장치(SSD)",
         subComment: "SSD 역할에 대해 더 알아볼까요?",
         options: [
-          { idx: 21, title: "최종 256G SSD(기본)", value: 0, checked: true },
+          { idx: 11, title: "최종 256G SSD(기본)", value: 0, checked: true },
           {
-            idx: 22,
+            idx: 12,
             title: "최종 500G SSD(500G로 교체)",
             value: 80000,
             checked: false,
           },
           {
-            idx: 23,
+            idx: 13,
             title: "최종 1TB SSD(1TB로 교체)",
             value: 180000,
             checked: false,
