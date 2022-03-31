@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { debounce, Divider, Grid, Stack, Typography } from "@mui/material";
@@ -9,6 +9,8 @@ import OrderFooter from "./OrderFooter";
 import { Box } from "@mui/system";
 import CartThumbItem from "../components/Cart/CartThumbItem";
 import { Typotext } from "../styles/Typotext";
+import { OrderContext } from "../components/context/OrderContext";
+import { cartContext } from "../App";
 
 const Container = styled.div`
   display: flex;
@@ -119,10 +121,14 @@ const CheckoutButton = styled.div`
   }
 `;
 
-const Cart = () => {
+const Cart = ({ orderModelInfo }) => {
+  const cartsContext = useContext(cartContext);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  console.log(cartsContext.text);
   return (
     <Container>
       <Grid container>

@@ -18,12 +18,15 @@ import Order from "./pages/Order";
 import OrderFooter from "./pages/OrderFooter";
 import LgGramMotion from "./pages/LgGramMotion";
 import Cart from "./pages/Cart";
-import { useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
 
+export const cartContext = createContext({ id: 1 });
 function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const initialContext = { id: 1, text: "test" };
   return (
     <Router>
       <Grid container>
@@ -51,7 +54,9 @@ function App() {
               <LgGramMotion />
             </Route>
             <Route path="/cart">
-              <Cart />
+              <cartContext.Provider value={initialContext}>
+                <Cart />
+              </cartContext.Provider>
             </Route>
           </Switch>
         </Grid>

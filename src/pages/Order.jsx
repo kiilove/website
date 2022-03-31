@@ -164,34 +164,36 @@ const Order = () => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
   }, 500);
 
+  const handleOptions = ({ optGroupIndex, optIdx, optValue }) => {
+    const optNew = {
+      id: optGroupIndex + 1,
+      optIdx: optIdx,
+      optValue: optValue,
+    };
+    const tempArr = [...optionsObj];
+    tempArr[optGroupIndex] = optNew;
+    const optionPriceArr = tempArr.map((item, index) => {
+      return [Number(item.optValue)];
+    });
+
+    setSumOptionsPrice(() =>
+      Object.values(optionPriceArr).reduce((a, b) => Number(a) + Number(b))
+    );
+
+    setOptionsObj(() => tempArr);
+  };
+
   const initModelInfo = () => {
     if (initialModelInfo.length > 0) {
       setOrderModelInfo({
-        ...orderModelInfo,
         id: 1,
         refModelId: initialModelInfo[0].id,
-        options: [{ id: 1, refId: 0, value: 0 }],
+        options: optionsObj,
         basePrice: initialPrice,
         optionPrice: sumOptionsPrice,
       });
     }
   };
-
-  const controlOrderInfo = ({ index, optId, optValue }) => {
-    // setOrderModelInfo({
-    //   ...orderModelInfo,
-    //   option: ([index] = { id: optId, value: optValue }),
-    // });
-    console.log(index);
-  };
-
-  // const calOptionsPrice = () => {
-  //   setSumOptionsPrice(() => Object.values(optionsObj).reduce((a, b) => a + b));
-  // };
-
-  // useEffect(() => {
-  //   calOptionsPrice();
-  // }, [optionsObj]);
 
   useEffect(() => {
     window.addEventListener("resize", handleResize);
@@ -200,8 +202,9 @@ const Order = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   useEffect(() => {
-    setTotalPrice(() => initialPrice + sumOptionsPrice);
+    setTotalPrice(() => Number(initialPrice) + Number(sumOptionsPrice));
   }, [sumOptionsPrice]);
 
   useEffect(() => {
@@ -218,7 +221,14 @@ const Order = () => {
     initModelInfo();
   }, [initialModelInfo]);
 
-  console.log(optionsObj);
+  useEffect(() => {
+    setOrderModelInfo({
+      ...orderModelInfo,
+      options: optionsObj,
+      optionPrice: sumOptionsPrice,
+    });
+    console.log(orderModelInfo);
+  }, [optionsObj]);
 
   return (
     <>
@@ -226,8 +236,7 @@ const Order = () => {
         {initialModelInfo[0] && (
           <>
             <Wrapper>
-              {JSON.stringify(orderModelInfo)}
-              {JSON.stringify(optionsObj)}
+              {/* {JSON.stringify(orderModelInfo)} */}
 
               <ImgContainer>
                 <StickBox offsetTop={20} offsetBottom={20}>
@@ -342,15 +351,13 @@ const Order = () => {
                             //     ["options_" + item.id]: Number(e.target.value),
                             //   ]);
                             // }}
-                            onClick={(e) => {
-                              
-                              const newOption = [
-                                ...orderModelInfo.options,
-                                { ...orderModelInfo.options[item.id] },
-                              ];
-
-                              console.log(newOption);
-                            }}
+                            onChange={() =>
+                              handleOptions({
+                                optGroupIndex: index,
+                                optIdx: option.idx,
+                                optValue: option.value,
+                              })
+                            }
                           />
                           <OptionItem htmlFor={`options_${option.idx}`}>
                             {option.title} +{" "}
@@ -387,7 +394,10 @@ const Order = () => {
                 width="900px"
               />
             </InfoWrapper>
-            <OrderFooter totalPrice={totalPrice} />
+            <OrderFooter
+              totalPrice={totalPrice}
+              orderModelInfo={orderModelInfo}
+            />
           </>
         )}
       </Container>

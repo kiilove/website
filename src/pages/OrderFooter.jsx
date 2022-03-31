@@ -1,12 +1,13 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { blue, blueGrey, grey, lightBlue } from "@mui/material/colors";
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Typotext } from "../styles/Typotext";
+import { Link } from "react-router-dom";
 
 const BottomMenuContainer = styled.div`
   position: fixed;
@@ -103,7 +104,7 @@ const SelectButton2 = styled.div`
     background-color: ${grey[200]};
   }
 `;
-const OrderFooter = ({ totalPrice }) => {
+const OrderFooter = ({ totalPrice, orderModelInfo }) => {
   return (
     <BottomMenuContainer style={{ borderTop: `1px solid ${grey[400]}` }}>
       <BottomMenuWrapper>
@@ -135,8 +136,26 @@ const OrderFooter = ({ totalPrice }) => {
           </SectorWrapper>
           <SectorWrapper>
             <ActionWrapper>
-              <SelectButton>장바구니에 담기</SelectButton>
-              <SelectButton2>견적서 요청</SelectButton2>
+              <Link
+                to={`/carts/add`}
+                style={{
+                  margin: "5px",
+                  height: "40px",
+                  textDecoration: "none",
+                }}
+              >
+                <SelectButton>장바구니에 담기</SelectButton>
+              </Link>
+              <Link
+                to="/carts/orderInfo"
+                style={{
+                  margin: "5px",
+                  height: "40px",
+                  textDecoration: "none",
+                }}
+              >
+                <SelectButton2>견적서 요청</SelectButton2>
+              </Link>
             </ActionWrapper>
             <Box
               sx={{
