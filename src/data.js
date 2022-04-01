@@ -535,3 +535,54 @@ export const ModelMiniSpec = [
   },
   { id: 10, title: "Windows10 Pro", isThumb: false, refModelId: "" },
 ];
+
+export const MyAsset = [
+  {
+    id: "1",
+    img: "/img/product/laptop/lg/detail/gram/gram2.png",
+    modelTitle: "LG gram 15 2022",
+    incomeDate: "2022-01-04",
+  },
+  {
+    id: "2",
+    img: "/img/product/pc/cto/asura_2022.png",
+    modelTitle: "JNCi712",
+    incomeDate: "2022-01-05",
+  },
+  {
+    id: "3",
+    img: "/img/product/pc/samsung/db400_2022.png",
+    modelTitle: "Samsung DB400 Tower",
+    incomeDate: "2022-02-01",
+  },
+  {
+    id: "4",
+    img: "/img/product/pc/samsung/db400slim_2022.png",
+    modelTitle: "Samsung DB400 Slim",
+    incomeDate: "2022-03-04",
+  },
+  {
+    id: "5",
+    img: "/img/product/pc/cto/asura_2022.png",
+    modelTitle: "JNCi712",
+    incomeDate: "2022-01-05",
+  },
+  {
+    id: "6",
+    img: "/img/product/pc/samsung/db400_2022.png",
+    modelTitle: "Samsung DB400 Tower",
+    incomeDate: "2022-02-01",
+  },
+  {
+    id: "7",
+    img: "/img/product/laptop/lg/detail/gram/gram2.png",
+    modelTitle: "LG gram 15 2022",
+    incomeDate: "2022-01-04",
+  },
+  {
+    id: "8",
+    img: "/img/product/pc/cto/asura_2022.png",
+    modelTitle: "JNCi712",
+    incomeDate: "2022-01-05",
+  },
+];

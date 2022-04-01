@@ -19,6 +19,7 @@ import OrderFooter from "./pages/OrderFooter";
 import LgGramMotion from "./pages/LgGramMotion";
 import Cart from "./pages/Cart";
 import { createContext, useContext, useEffect } from "react";
+import MyAccount from "./pages/MyAccount";
 
 export const cartContext = createContext({ id: 1 });
 function App() {
@@ -52,6 +53,9 @@ function App() {
             </Route>
             <Route path="/lgGram">
               <LgGramMotion />
+            </Route>
+            <Route path="/myaccount">
+              <MyAccount />
             </Route>
             <Route path="/cart">
               <cartContext.Provider value={initialContext}>

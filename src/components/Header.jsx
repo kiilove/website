@@ -97,7 +97,7 @@ const Header = () => {
               <MenuItem id={item.id}>{item.title}</MenuItem>
             </Link>
           ))}
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to="/myaccount" style={{ textDecoration: "none" }}>
             <MenuItem style={{ justifyContent: "flex-end" }}>
               <PermIdentityOutlinedIcon sx={{ fontSize: 34 }} />
             </MenuItem>
@@ -126,7 +126,9 @@ const Header = () => {
             </Link>
           </MenuItem>
           <MenuItem style={{ justifyContent: "flex-end" }}>
-            <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
+            <Link to="/myaccount" style={{ textDecoration: "none" }}>
+              <PermIdentityOutlinedIcon sx={{ fontSize: 28 }} />
+            </Link>
           </MenuItem>
         </MobileMenuWrapper>
       </Stack>

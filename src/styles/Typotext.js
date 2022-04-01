@@ -9,4 +9,5 @@ export const Typotext = styled.span`
     props.fontFamily ? props.fontFamily : "Noto Sans KR"};
   font-size: ${(props) => (props.size ? props.size : "14px")};
   margin-bottom: ${(props) => props.gutterBottom && "10px"};
+  color: ${(props) => (props.color ? props.color : blueGrey[800])};
 `;
