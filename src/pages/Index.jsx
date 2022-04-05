@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { blueGrey, grey, lightGreen } from "@mui/material/colors";
 import styled from "styled-components";
 import ThumbProduct from "../components/ThumbProduct";
 import ThumbProductHalf from "../components/ThumbProductHalf";
@@ -10,14 +11,23 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   box-sizing: border-box;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   justify-content: center;
   ${mobile({ padding: "10px" })}
 `;
 
+const SubHeaderContainer = styled.div`
+  display: flex;
+`;
+
+const SubHeaderWrapper = styled.div`
+  display: flex;
+`;
+
 const PageWrapper = styled.div`
-  background-color: whitesmoke;
+  background-color: ${grey[100]};
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -35,12 +45,17 @@ const HalfWrapper = styled.div`
   padding: 20px;
   ${mobile({ flexDirection: "column", padding: "0px" })}
 `;
+
 const Index = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <Container>
+      <SubHeaderContainer>
+        <SubHeaderWrapper></SubHeaderWrapper>
+      </SubHeaderContainer>
       <PageWrapper>
         <ThumbProduct
           title="LG gram 2022 New"

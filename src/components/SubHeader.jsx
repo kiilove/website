@@ -1,17 +1,40 @@
 import { blueGrey, grey } from "@mui/material/colors";
 import { Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { Container } from "./Header";
+import { mobile } from "../responsive";
 
-const SubHeader = () => {
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  ${mobile({ display: "none" })}
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SubHeader = ({ type }) => {
+  const [headerContent, setHeaderContent] = useState("");
+  switch (type) {
+    case "index":
+      const content = 0;
+    default:
+  }
   return (
     <Container>
-      <Stack width={"100%"} justifyContent={"center"} alignItems={"center"}>
-        <Typography variant="subtitle1" color={grey[700]} fontWeight={"bold"}>
-          기업용 최적화된 업무 환경 구성을 도와드립니다.
-        </Typography>
-      </Stack>
+      <Wrapper></Wrapper>
     </Container>
   );
 };

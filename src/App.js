@@ -20,6 +20,8 @@ import LgGramMotion from "./pages/LgGramMotion";
 import Cart from "./pages/Cart";
 import { createContext, useContext, useEffect } from "react";
 import MyAccount from "./pages/MyAccount";
+import AdminIndex from "./admin/AdminIndex";
+import ProductWrite from "./admin/ProductWrite";
 
 export const cartContext = createContext({ id: 1 });
 function App() {
@@ -34,9 +36,7 @@ function App() {
         <Grid item xs={12}>
           <Header />
         </Grid>
-        <Grid item xs={12}>
-          <SubHeader />
-        </Grid>
+
         <Grid item xs={12}>
           <Switch>
             <Route exact path="/">
@@ -56,6 +56,12 @@ function App() {
             </Route>
             <Route path="/myaccount">
               <MyAccount />
+            </Route>
+            <Route path="/admin">
+              <AdminIndex />
+            </Route>
+            <Route path="/adminproductwrite">
+              <ProductWrite />
             </Route>
             <Route path="/cart">
               <cartContext.Provider value={initialContext}>
