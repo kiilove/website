@@ -22,6 +22,9 @@ import { createContext, useContext, useEffect } from "react";
 import MyAccount from "./pages/MyAccount";
 import AdminIndex from "./admin/AdminIndex";
 import ProductWrite from "./admin/ProductWrite";
+import ReducerText from "./admin/ReducerText";
+import Gram2022h2 from "./pages/product/Gram2022h2";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 export const cartContext = createContext({ id: 1 });
 function App() {
@@ -52,7 +55,7 @@ function App() {
               <Order />
             </Route>
             <Route path="/lgGram">
-              <LgGramMotion />
+              <Gram2022h2 />
             </Route>
             <Route path="/myaccount">
               <MyAccount />
@@ -62,6 +65,9 @@ function App() {
             </Route>
             <Route path="/adminproductwrite">
               <ProductWrite />
+            </Route>
+            <Route path="/help">
+              <ReducerText />
             </Route>
             <Route path="/cart">
               <cartContext.Provider value={initialContext}>

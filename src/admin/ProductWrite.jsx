@@ -8,7 +8,7 @@ import {
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import styled from "styled-components";
 import { ItemBox, ItemRow } from "../styles/Commons";
 import { Typotext } from "../styles/Typotext";
@@ -24,6 +24,7 @@ import {
 } from "@mui/material/colors";
 import ImageUploading from "react-images-uploading";
 import { ProductCategories } from "../data";
+import { productReducer } from "../components/reducer/Product";
 
 const Container = styled.div`
   display: flex;
@@ -243,6 +244,7 @@ const InputText = styled.input`
   height: 25px;
   width: 30%;
   font-size: 13px;
+
   &:focus {
     border: 1px solid ${lightBlue[800]};
   }
@@ -273,25 +275,36 @@ const OptionListRow = styled.div`
   align-items: center;
 `;
 
+const initState = {
+  img: [],
+  color: [],
+  bigCategory: "",
+  category: "",
+  modelName: "",
+  modelCode: "",
+  price: 0,
+  specs: [],
+  options: [],
+};
+
 const filter = createFilterOptions();
+
 const ProductWrite = () => {
-  const [categoryValue, setCategoryValue] = useState(null);
+  const [state, dispatch] = useReducer(productReducer, initState);
+  const [price, setPrice] = useState(0);
+  const [optionPrice, setOptionPrice] = useState([]);
+
   const [images, setimages] = useState([]);
-  const [specs, setSpecs] = useState([]);
-  const [specInputTitle, setSpecInputTitle] = useState();
-  const [specInputTitleComment, setSpecInputTitleComment] = useState();
+
   const [optionWindow, setOptionWindow] = useState(false);
   const [specWindow, setSpecWindow] = useState(false);
-  const [options, setOptions] = useState([]);
-  const [optionItems, setOptionItems] = useState([]);
-  const [optionInputGroupTitle, setOptionInputGroupTitle] = useState();
-  const [optionInputGroupInfo, setOptionInputGroupInfo] = useState();
-  const [optionInputGroupInfoLink, setOptionInputGroupInfoLink] = useState();
-  const [optionInputItemTitle, setOptionInputItemTitle] = useState();
-  const [optionInputItemValue, setOptionInputItemValue] = useState();
+  const [dummy, setDummy] = useState(true);
 
-  const specTitleRef = useRef(null);
-  const specTitleCommentRef = useRef(null);
+  const optionPriceRef = useRef([]);
+
+  useEffect(() => {
+    console.log(state);
+  }, [state, dummy]);
 
   const MaxImgCount = 100;
 
@@ -300,94 +313,25 @@ const ProductWrite = () => {
     setimages(imgList);
   };
 
-  const initialSpecs = () => {
-    setSpecInputTitle("");
-    setSpecInputTitleComment("");
-  };
-
-  const addSpecs = () => {
-    const specArr = [...specs];
-    specArr.length === 0
-      ? specArr.push({
-          title: specTitleRef.current.value,
-          titleComment: specTitleCommentRef.current.value,
-          isThumb: true,
-        })
-      : specArr.push({
-          title: specTitleRef.current.value,
-          titleComment: specTitleCommentRef.current.value,
-          isThumb: false,
-        });
-
-    setSpecs(specArr);
-    initialSpecs();
-    //setSpecWindow(true);
-  };
-
-  const delSpecs = (idx) => {
-    const specArr = [...specs];
-    specArr.splice(idx, 1);
-    setSpecs(specArr);
-  };
-
-  const handleSpecItems = (idx, e) => {
-    const specArr = [...specs];
-    specArr[idx] = { ...specArr[idx], [e.target.name]: e.target.value };
-    setSpecs(specArr);
-  };
-
-  const addOptionGroup = () => {
-    const optionArr = [...options];
-    optionArr.push({
-      groupTitle: undefined,
-      subComment: undefined,
-      subCommentLink: undefined,
-      options: [],
+  const handlePriceNumber = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const controledValue = value.replaceAll(",", "");
+    dispatch({
+      type: "INPUT_UPDATE",
+      payload: { keys: name, value: controledValue },
     });
-    setOptionWindow(true);
-    setOptions(optionArr);
+    setPrice(controledValue);
   };
 
-  const addOptionItem = (gIdx) => {
-    const optionArr = [...options];
-    optionArr[gIdx].options.push({
-      title: undefined,
-      value: undefined,
-    });
-    setOptions(optionArr);
+  const handleOptionPriceNumber = (e, gIdx, iIdx) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const controledValue = value.replaceAll(",", "");
+
+    setOptionPrice((optionPrice[gIdx] = controledValue));
   };
 
-  const delOptionGroup = (gIdx) => {
-    const optionArr = [...options];
-    optionArr.splice(gIdx, 1);
-    setOptions(optionArr);
-  };
-
-  const delOptionItem = (gIdx, iIdx) => {
-    const optionArr = [...options];
-    optionArr[gIdx].options.splice(iIdx, 1);
-    setOptions(optionArr);
-  };
-
-  const handleOptionGroup = (gIdx, e) => {
-    const optionArr = [...options];
-    console.log(optionArr[gIdx]);
-    optionArr[gIdx] = { ...optionArr[gIdx], [e.target.name]: e.target.value };
-    setOptions(optionArr);
-  };
-  const handleOptionItems = (gIdx, iIdx, e) => {
-    console.log(iIdx);
-    const optionArr = [...options];
-    optionArr[gIdx].options[iIdx] = {
-      ...optionArr[gIdx].options[iIdx],
-      [e.target.name]: e.target.value,
-    };
-    console.log(optionArr);
-    setOptions(optionArr);
-  };
-
-  console.log(specs);
-  console.log(options);
   return (
     <Container>
       <Wrapper>
@@ -396,6 +340,7 @@ const ProductWrite = () => {
             <TitleRow>
               <ItemBox>
                 <Typotext size="20px">제품등록</Typotext>
+                <button onClick={() => console.log(state)}></button>
               </ItemBox>
             </TitleRow>
           </TitleWrapper>
@@ -521,72 +466,18 @@ const ProductWrite = () => {
                 <Typotext size="15px">제품카테고리(LG 노트북)</Typotext>
               </InputTitle>
               <InputForm style={{ flex: 4 }}>
-                <Autocomplete
-                  value={categoryValue}
-                  onChange={(event, newValue) => {
-                    if (typeof newValue === "string") {
-                      setCategoryValue({
-                        title: newValue,
-                        value: newValue,
-                      });
-                    } else if (newValue && newValue.inputValue) {
-                      // Create a new value from the user input
-                      setCategoryValue({
-                        title: newValue.inputValue,
-                        value: newValue.inputValue,
-                      });
-                    } else {
-                      setCategoryValue(newValue);
-                    }
+                <InputText
+                  autoComplete="new-password"
+                  name="bigCategory"
+                  style={{ width: "50%" }}
+                  onChange={(e) => {
+                    const { name, value } = e.target;
+                    dispatch({
+                      type: "INPUT_UPDATE",
+                      payload: { keys: name, value: value },
+                    });
                   }}
-                  filterOptions={(options, params) => {
-                    const filtered = filter(options, params);
-
-                    const { inputValue } = params;
-                    // Suggest the creation of a new value
-                    const isExisting = options.some(
-                      (option) => inputValue === option.title
-                    );
-                    if (inputValue !== "" && !isExisting) {
-                      filtered.push({
-                        inputValue,
-                        title: `추가 "${inputValue}"`,
-                      });
-                    }
-
-                    return filtered;
-                  }}
-                  selectOnFocus
-                  clearOnBlur
-                  handleHomeEndKeys
-                  id="productCate"
-                  options={ProductCategories}
-                  getOptionLabel={(option) => {
-                    // Value selected with enter, right from the input
-                    if (typeof option === "string") {
-                      return option;
-                    }
-                    // Add "xxx" option created dynamically
-                    if (option.inputValue) {
-                      return option.inputValue;
-                    }
-                    // Regular option
-                    return option.title;
-                  }}
-                  renderOption={(props, option) => (
-                    <li {...props}>{option.title}</li>
-                  )}
-                  sx={{ width: 300 }}
-                  freeSolo
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      size="small"
-                      sx={{ width: "350px" }}
-                    />
-                  )}
                 />
-                {/* {JSON.stringify(categoryValue)} */}
               </InputForm>
             </BodyRow>
             <BodyRow>
@@ -594,7 +485,18 @@ const ProductWrite = () => {
                 <Typotext size="15px">모델카테고리(gram_15_22H1)</Typotext>
               </InputTitle>
               <InputForm>
-                <TextField size="small" sx={{ width: "350px" }} />
+                <InputText
+                  autoComplete="new-password"
+                  name="category"
+                  style={{ width: "50%" }}
+                  onChange={(e) => {
+                    const { name, value } = e.target;
+                    dispatch({
+                      type: "INPUT_UPDATE",
+                      payload: { keys: name, value: value },
+                    });
+                  }}
+                />
               </InputForm>
             </BodyRow>
             <BodyRow>
@@ -602,15 +504,37 @@ const ProductWrite = () => {
                 <Typotext size="15px">제품명(15인치 그램 2022년)</Typotext>
               </InputTitle>
               <InputForm>
-                <TextField size="small" sx={{ width: "350px" }} />
+                <InputText
+                  autoComplete="new-password"
+                  name="modelName"
+                  style={{ width: "50%" }}
+                  onChange={(e) => {
+                    const { name, value } = e.target;
+                    dispatch({
+                      type: "INPUT_UPDATE",
+                      payload: { keys: name, value: value },
+                    });
+                  }}
+                />
               </InputForm>
             </BodyRow>
             <BodyRow>
               <InputTitle>
-                <Typotext size="15px">모델명(LG 15Z95N)</Typotext>
+                <Typotext size="15px">모델코드(LG 15Z95N)</Typotext>
               </InputTitle>
               <InputForm>
-                <TextField size="small" sx={{ width: "350px" }} />
+                <InputText
+                  autoComplete="new-password"
+                  name="modelCode"
+                  style={{ width: "50%" }}
+                  onChange={(e) => {
+                    const { name, value } = e.target;
+                    dispatch({
+                      type: "INPUT_UPDATE",
+                      payload: { keys: name, value: value },
+                    });
+                  }}
+                />
               </InputForm>
             </BodyRow>
             <BodyRow>
@@ -618,7 +542,15 @@ const ProductWrite = () => {
                 <Typotext size="15px">가격</Typotext>
               </InputTitle>
               <InputForm>
-                <TextField size="small" sx={{ width: "350px" }} />
+                <InputText
+                  autoComplete="new-password"
+                  name="price"
+                  style={{ width: "50%", textAlign: "right" }}
+                  value={new Intl.NumberFormat().format(price)}
+                  onChange={(e) => {
+                    handlePriceNumber(e);
+                  }}
+                />
               </InputForm>
             </BodyRow>
           </BodyWrapper>
@@ -628,167 +560,118 @@ const ProductWrite = () => {
         </div>
         <BodyContainer>
           <BodyWrapper>
-            {specWindow ? (
-              <>
-                <BodyRow>
-                  <InputTitle>스펙</InputTitle>
-                  <InputForm
-                    style={{
-                      gap: "10px",
+            <BodyRow>
+              <InputTitle>스펙</InputTitle>
+              <InputForm>
+                <ItemBox
+                  style={{
+                    flex: 1,
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    onClick={() => {
+                      dispatch({ type: "SPECS_ADD" });
+                      setDummy(!dummy);
                     }}
                   >
-                    <ItemBox
-                      style={{
-                        flex: 2,
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <ItemRow style={{ width: "100%" }}>
-                        <InputText
-                          ref={specTitleRef}
-                          value={specInputTitle}
-                          onChange={(e) => setSpecInputTitle(e.target.value)}
-                          style={{ width: "100%" }}
-                        />
-                      </ItemRow>
-                      <ItemRow>
-                        <Typotext size="12px">
-                          예) 그램 15 i7, Intel Core i7 1165G7
-                        </Typotext>
-                      </ItemRow>
-                    </ItemBox>
-                    <ItemBox
-                      style={{
-                        flex: 2,
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <ItemRow style={{ width: "100%" }}>
-                        <InputText
-                          ref={specTitleCommentRef}
-                          value={specInputTitleComment}
-                          onChange={(e) =>
-                            setSpecInputTitleComment(e.target.value)
-                          }
-                          style={{ width: "100%" }}
-                        />
-                      </ItemRow>
-                      <ItemRow>
-                        <Typotext size="12px">
-                          예) 4코어 4쓰레드 2.3GHz, 프로세서
-                        </Typotext>
-                      </ItemRow>
-                    </ItemBox>
-
-                    <ItemBox
-                      style={{
-                        flex: 1,
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <ItemRow
-                        style={{
-                          width: "100%",
-                          gap: "5px",
-                        }}
-                      >
-                        <Button
-                          variant="outlined"
-                          color="success"
-                          size="small"
-                          onClick={() => addSpecs()}
-                        >
-                          추가
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          color="primary"
-                          size="small"
-                          onClick={() => addSpecs()}
-                        >
-                          미리보기
-                        </Button>
-                      </ItemRow>
-                      <ItemRow style={{ height: "20px" }}></ItemRow>
-                    </ItemBox>
+                    스펙 항목 추가
+                  </Button>
+                  <Button variant="outlined" color="primary" size="small">
+                    미리보기
+                  </Button>
+                </ItemBox>
+              </InputForm>
+            </BodyRow>
+            {state.specs &&
+              state.specs.map((spec, sIdx) => (
+                <BodyRow>
+                  <InputTitle>스펙 {sIdx + 1}</InputTitle>
+                  <InputForm>
+                    <SpecListContainer>
+                      <SpecListWrapper>
+                        <SpecListRow>
+                          <ItemBox
+                            style={{
+                              flex: 1,
+                              alignItems: "center",
+                              justifyContent: "flex-start",
+                              gap: "10px",
+                            }}
+                          >
+                            <InputText
+                              name="title"
+                              style={{ height: "15px" }}
+                              value={state.specs[sIdx].title}
+                              onChange={(e) => {
+                                const { name, value } = e.target;
+                                dispatch({
+                                  type: "SPECS_UPDATE",
+                                  payload: { sIdx, keys: name, value },
+                                });
+                                setDummy(!dummy);
+                              }}
+                            />
+                            <InputText
+                              name="titleComment"
+                              style={{ height: "15px" }}
+                              value={state.specs[sIdx].titleComment}
+                              onChange={(e) => {
+                                const { name, value } = e.target;
+                                sIdx === 0
+                                  ? dispatch({
+                                      type: "SPECS_UPDATE",
+                                      payload: {
+                                        sIdx,
+                                        keys: name,
+                                        value,
+                                        isThumb: true,
+                                      },
+                                    })
+                                  : dispatch({
+                                      type: "SPECS_UPDATE",
+                                      payload: {
+                                        sIdx,
+                                        keys: name,
+                                        value,
+                                        isThumb: false,
+                                      },
+                                    });
+                                setDummy(!dummy);
+                              }}
+                            />
+                            <ItemBox>
+                              <IconButton
+                                aria-label="delete"
+                                onClick={() => {
+                                  dispatch({
+                                    type: "SPECS_DEL",
+                                    payload: { sIdx },
+                                  });
+                                  setDummy(!dummy);
+                                }}
+                              >
+                                <DeleteIcon
+                                  style={{
+                                    color: grey[500],
+                                    fontSize: "18px",
+                                  }}
+                                />
+                              </IconButton>
+                            </ItemBox>
+                          </ItemBox>
+                        </SpecListRow>
+                      </SpecListWrapper>
+                    </SpecListContainer>
                   </InputForm>
                 </BodyRow>
-                {specs && (
-                  <>
-                    <BodyRow>
-                      <InputTitle>내용</InputTitle>
-                      <InputForm>
-                        <SpecListContainer>
-                          <SpecListWrapper>
-                            {specs.map((item, index) => (
-                              <SpecListRow key={"specs" + index}>
-                                <ItemBox
-                                  style={{
-                                    flex: 1,
-                                    alignItems: "center",
-                                    justifyContent: "flex-start",
-                                    gap: "10px",
-                                  }}
-                                >
-                                  <InputText
-                                    name="title"
-                                    value={
-                                      specs[index]
-                                        ? specs[index].title
-                                        : item.title
-                                    }
-                                    onChange={(e) => handleSpecItems(index, e)}
-                                  />
-                                  <InputText
-                                    name="titleComment"
-                                    value={
-                                      specs[index]
-                                        ? specs[index].titleComment
-                                        : item.titleComment
-                                    }
-                                    onChange={(e) => handleSpecItems(index, e)}
-                                  />
-                                  <ItemBox>
-                                    <IconButton aria-label="delete">
-                                      <DeleteIcon
-                                        style={{
-                                          color: grey[500],
-                                          fontSize: "18px",
-                                        }}
-                                        onClick={() => delSpecs(index)}
-                                      />
-                                    </IconButton>
-                                  </ItemBox>
-                                </ItemBox>
-                              </SpecListRow>
-                            ))}
-                          </SpecListWrapper>
-                        </SpecListContainer>
-                      </InputForm>
-                    </BodyRow>
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                <BodyRow>
-                  <ItemBox style={{ justifyContent: "center", width: "100%" }}>
-                    <Button
-                      sx={{ fontSize: "15px", fontWeight: "bold" }}
-                      onClick={() => setSpecWindow(true)}
-                    >
-                      스펙추가
-                    </Button>
-                  </ItemBox>
-                </BodyRow>
-              </>
-            )}
+              ))}
           </BodyWrapper>
         </BodyContainer>
         <div style={{ width: "100%", marginBottom: "20px" }}>
@@ -796,204 +679,227 @@ const ProductWrite = () => {
         </div>
         <BodyContainer>
           <BodyWrapper>
-            {optionWindow ? (
-              <>
-                <BodyRow>
-                  <InputTitle>옵션</InputTitle>
-                  <InputForm
-                    style={{
-                      gap: "10px",
-                    }}
-                  >
-                    <ItemBox
-                      style={{
-                        flex: 1,
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        flexDirection: "column",
-                        gap: "10px",
-                      }}
-                    >
-                      <Button
-                        variant="outlined"
-                        color="success"
-                        size="small"
-                        onClick={addOptionGroup}
-                      >
-                        옵션그룹추가
-                      </Button>
-                      <Button variant="outlined" color="primary" size="small">
-                        미리보기
-                      </Button>
-                    </ItemBox>
-                  </InputForm>
-                </BodyRow>
-                {options.map((optionGroup, gIdx) => (
-                  <>
-                    <BodyRow key={"optionG" + gIdx}>
-                      <InputTitle>
-                        옵션 {gIdx + 1}
-                        <ItemBox style={{ flex: 1 }}>
-                          <IconButton
-                            aria-label="delete"
-                            onClick={() => delOptionGroup(gIdx)}
-                          >
-                            <DeleteIcon
-                              style={{
-                                color: grey[500],
-                                fontSize: "18px",
-                              }}
-                            />
-                          </IconButton>
-                        </ItemBox>
-                      </InputTitle>
-                      <InputForm
-                        style={{
-                          gap: "10px",
-                        }}
-                      >
-                        <OptionListContainer
-                          style={{ boxSizing: "border-box" }}
-                        >
-                          <OptionListWrapper>
-                            <OptionListRow style={{ gap: "5px" }}>
-                              <ItemBox style={{ flex: 1 }}>
-                                <InputText
-                                  name="groupTitle"
-                                  style={{ height: "15px", width: "100%" }}
-                                  placeholder="옵션그룹명"
-                                  value={
-                                    options[gIdx]
-                                      ? options[gIdx].groupTitle
-                                      : optionGroup.groupTitle
-                                  }
-                                  onChange={(e) => handleOptionGroup(gIdx, e)}
-                                />
-                              </ItemBox>
-                              <ItemBox style={{ flex: 1 }}>
-                                <InputText
-                                  name="subComment"
-                                  style={{ height: "15px", width: "100%" }}
-                                  placeholder="옵션 설명"
-                                  value={
-                                    options[gIdx]
-                                      ? options[gIdx].subComment
-                                      : optionGroup.subComment
-                                  }
-                                  onChange={(e) => handleOptionGroup(gIdx, e)}
-                                />
-                              </ItemBox>
-                              <ItemBox style={{ flex: 1 }}>
-                                <InputText
-                                  name="subCommentLink"
-                                  style={{ height: "15px", width: "100%" }}
-                                  placeholder="옵션 설명 링크"
-                                  value={
-                                    options[gIdx]
-                                      ? options[gIdx].subCommentLink
-                                      : optionGroup.subCommentLink
-                                  }
-                                  onChange={(e) => handleOptionGroup(gIdx, e)}
-                                />
-                              </ItemBox>
-                              <ItemBox style={{ flex: 0.5 }}>
-                                <Button
-                                  variant="contained"
-                                  color="success"
-                                  disableElevation
-                                  size="small"
-                                  style={{ height: "25px", fontSize: "12px" }}
-                                  onClick={() => addOptionItem(gIdx)}
-                                >
-                                  하위옵션추가
-                                </Button>
-                              </ItemBox>
-                            </OptionListRow>
-                            <div
-                              style={{ width: "100%", marginBottom: "20px" }}
-                            >
-                              <Divider
-                                sx={{ backgroundColor: lightGreen[100] }}
-                              />
-                            </div>
-                            {optionGroup.options &&
-                              optionGroup.options.map((optionItem, iIdx) => (
-                                <>
-                                  <OptionListRow style={{ gap: "5px" }}>
-                                    <ItemBox style={{ flex: 2 }}>
-                                      <InputText
-                                        style={{
-                                          height: "15px",
-                                          width: "100%",
-                                        }}
-                                        name="title"
-                                        placeholder="옵션명 / 예: 최종 256G(기본), 최종 500G(500G로 교체)"
-                                        value={
-                                          options[gIdx].options[iIdx].title
-                                            ? options[gIdx].options[iIdx].title
-                                            : optionItem.title
-                                        }
-                                        onChange={(e) =>
-                                          handleOptionItems(gIdx, iIdx, e)
-                                        }
-                                      />
-                                    </ItemBox>
-                                    <ItemBox style={{ flex: 1 }}>
-                                      <InputText
-                                        style={{
-                                          height: "15px",
-                                          width: "100%",
-                                        }}
-                                        name="value"
-                                        value={
-                                          options[gIdx].options[iIdx].value
-                                            ? options[gIdx].options[iIdx].value
-                                            : optionItem.value
-                                        }
-                                        placeholder="가격 / 예: 80000, 1200000"
-                                        onChange={(e) =>
-                                          handleOptionItems(gIdx, iIdx, e)
-                                        }
-                                      />
-                                    </ItemBox>
-                                    <ItemBox style={{ flex: 0.1 }}>
-                                      <IconButton
-                                        aria-label="delete"
-                                        onClick={() =>
-                                          delOptionItem(gIdx, iIdx)
-                                        }
-                                      >
-                                        <DeleteIcon
-                                          style={{
-                                            color: grey[500],
-                                            fontSize: "18px",
-                                          }}
-                                        />
-                                      </IconButton>
-                                    </ItemBox>
-                                  </OptionListRow>
-                                </>
-                              ))}
-                          </OptionListWrapper>
-                        </OptionListContainer>
-                      </InputForm>
-                    </BodyRow>
-                  </>
-                ))}
-              </>
-            ) : (
-              <BodyRow>
-                <ItemBox style={{ justifyContent: "center", width: "100%" }}>
+            <BodyRow>
+              <InputTitle>옵션</InputTitle>
+              <InputForm
+                style={{
+                  gap: "10px",
+                }}
+              >
+                <ItemBox
+                  style={{
+                    flex: 1,
+                    padding: "10px",
+                    boxSizing: "border-box",
+                    flexDirection: "column",
+                    gap: "10px",
+                  }}
+                >
                   <Button
+                    variant="outlined"
                     color="success"
-                    sx={{ fontSize: "15px", fontWeight: "bold" }}
-                    onClick={addOptionGroup}
+                    size="small"
+                    onClick={() => {
+                      dispatch({ type: "OPTION_ADD" });
+                      setDummy(!dummy);
+                    }}
                   >
                     옵션그룹추가
                   </Button>
+                  <Button variant="outlined" color="primary" size="small">
+                    미리보기
+                  </Button>
                 </ItemBox>
-              </BodyRow>
-            )}
+              </InputForm>
+            </BodyRow>
+            {state.options &&
+              state.options.map((optionGroup, gIdx) => (
+                <>
+                  <BodyRow key={"optionG" + gIdx}>
+                    <InputTitle>
+                      옵션 {gIdx + 1}
+                      <ItemBox style={{ flex: 1 }}>
+                        <IconButton aria-label="delete">
+                          <DeleteIcon
+                            style={{
+                              color: grey[500],
+                              fontSize: "18px",
+                            }}
+                          />
+                        </IconButton>
+                      </ItemBox>
+                    </InputTitle>
+                    <InputForm
+                      style={{
+                        gap: "10px",
+                      }}
+                    >
+                      <OptionListContainer style={{ boxSizing: "border-box" }}>
+                        <OptionListWrapper>
+                          <OptionListRow style={{ gap: "5px" }}>
+                            <ItemBox style={{ flex: 1 }}>
+                              <InputText
+                                name="groupTitle"
+                                style={{ height: "15px", width: "100%" }}
+                                placeholder="옵션그룹명"
+                                onChange={(e) => {
+                                  const { name, value } = e.target;
+                                  dispatch({
+                                    type: "OPTION_UPDATE",
+                                    payload: {
+                                      target: "GROUP",
+                                      gIdx,
+                                      keys: name,
+                                      value,
+                                    },
+                                  });
+                                  setDummy(!dummy);
+                                }}
+                              />
+                            </ItemBox>
+                            <ItemBox style={{ flex: 1 }}>
+                              <InputText
+                                name="subComment"
+                                style={{ height: "15px", width: "100%" }}
+                                placeholder="옵션 설명"
+                                onChange={(e) => {
+                                  const { name, value } = e.target;
+                                  dispatch({
+                                    type: "OPTION_UPDATE",
+                                    payload: {
+                                      target: "GROUP",
+                                      gIdx,
+                                      keys: name,
+                                      value,
+                                    },
+                                  });
+                                  setDummy(!dummy);
+                                }}
+                              />
+                            </ItemBox>
+                            <ItemBox style={{ flex: 1 }}>
+                              <InputText
+                                name="subCommentLink"
+                                style={{ height: "15px", width: "100%" }}
+                                placeholder="옵션 설명 링크"
+                                onChange={(e) => {
+                                  const { name, value } = e.target;
+                                  dispatch({
+                                    type: "OPTION_UPDATE",
+                                    payload: {
+                                      target: "GROUP",
+                                      gIdx,
+                                      keys: name,
+                                      value,
+                                    },
+                                  });
+                                  setDummy(!dummy);
+                                }}
+                              />
+                            </ItemBox>
+                            <ItemBox style={{ flex: 0.5 }}>
+                              <Button
+                                variant="contained"
+                                color="success"
+                                disableElevation
+                                size="small"
+                                style={{ height: "25px", fontSize: "12px" }}
+                                onClick={() => {
+                                  dispatch({
+                                    type: "OPTION_ITEM_ADD",
+                                    payload: { gIdx },
+                                  });
+                                  setDummy(!dummy);
+                                }}
+                              >
+                                하위옵션추가
+                              </Button>
+                            </ItemBox>
+                          </OptionListRow>
+                          <div style={{ width: "100%", marginBottom: "20px" }}>
+                            <Divider
+                              sx={{ backgroundColor: lightGreen[100] }}
+                            />
+                          </div>
+                          {optionGroup.options &&
+                            optionGroup.options.map((optionItem, iIdx) => (
+                              <>
+                                <OptionListRow style={{ gap: "5px" }}>
+                                  <ItemBox style={{ flex: 2 }}>
+                                    <InputText
+                                      style={{
+                                        height: "15px",
+                                        width: "100%",
+                                      }}
+                                      name="title"
+                                      placeholder="옵션명 / 예: 최종 256G(기본), 최종 500G(500G로 교체)"
+                                      onChange={(e) => {
+                                        const { name, value } = e.target;
+                                        dispatch({
+                                          type: "OPTION_UPDATE",
+                                          payload: {
+                                            target: "ITEM",
+                                            gIdx,
+                                            iIdx,
+                                            keys: name,
+                                            value,
+                                          },
+                                        });
+                                        setDummy(!dummy);
+                                      }}
+                                    />
+                                  </ItemBox>
+                                  <ItemBox style={{ flex: 1 }}>
+                                    <InputText
+                                      style={{
+                                        height: "15px",
+                                        width: "100%",
+                                      }}
+                                      name="value"
+                                      value={
+                                        state.options[gIdx].options[iIdx] &&
+                                        new Intl.NumberFormat().format(
+                                          state.options[gIdx].options[iIdx]
+                                            .value
+                                        )
+                                      }
+                                      placeholder="가격 / 예: 80000, 1200000"
+                                      onChange={(e) => {
+                                        const { name, value } = e.target;
+                                        dispatch({
+                                          type: "OPTION_UPDATE",
+                                          payload: {
+                                            target: "ITEM",
+                                            gIdx,
+                                            iIdx,
+                                            keys: name,
+                                            value: value.replaceAll(",", ""),
+                                          },
+                                        });
+
+                                        setDummy(!dummy);
+                                      }}
+                                    />
+                                  </ItemBox>
+                                  <ItemBox style={{ flex: 0.1 }}>
+                                    <IconButton aria-label="delete">
+                                      <DeleteIcon
+                                        style={{
+                                          color: grey[500],
+                                          fontSize: "18px",
+                                        }}
+                                      />
+                                    </IconButton>
+                                  </ItemBox>
+                                </OptionListRow>
+                              </>
+                            ))}
+                        </OptionListWrapper>
+                      </OptionListContainer>
+                    </InputForm>
+                  </BodyRow>
+                </>
+              ))}
           </BodyWrapper>
         </BodyContainer>
       </Wrapper>
