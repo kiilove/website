@@ -277,7 +277,7 @@ const Gram2022h2 = () => {
                   >
                     <ImgBox
                       src="/img/etc/evoi5.png"
-                      width="150px"
+                      width="250px"
                       style={{ marginBottom: "50px" }}
                     />
                     <GridentText size="30px" style={{ fontWeight: 700 }}>
@@ -303,7 +303,7 @@ const Gram2022h2 = () => {
                   >
                     <ImgBox
                       src="/img/etc/evoi7.png"
-                      width="150px"
+                      width="250px"
                       style={{ marginBottom: "50px" }}
                     />
                     <GridentText2 size="30px" style={{ fontWeight: 700 }}>
