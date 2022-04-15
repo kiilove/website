@@ -1,30 +1,10 @@
 import { blueGrey } from "@mui/material/colors";
-import {
-  Animator,
-  ScrollContainer,
-  ScrollPage,
-  batch,
-  Fade,
-  FadeIn,
-  Move,
-  MoveIn,
-  MoveOut,
-  Sticky,
-  StickyIn,
-  ZoomIn,
-  ZoomOut,
-  Zoom,
-  FadeOut,
-} from "react-scroll-motion";
 
-import { useParallax, ParallaxProvider } from "react-scroll-parallax";
+import { motion } from "framer-motion";
 
 import styled from "styled-components";
 import { ImgBox, ItemBox, ItemRow } from "../../styles/Commons";
 import { GridentText, GridentText2, Typotext } from "../../styles/Typotext";
-
-const ZoomInScrollOut = batch(StickyIn(), FadeIn(), ZoomIn());
-const FadeUp = batch(Fade(), Move(), Sticky());
 
 const Container = styled.div`
   display: flex;
@@ -70,6 +50,52 @@ const ComponentRow = styled.div`
   display: flex;
 `;
 
+const container = {
+  show: {
+    transition: {
+      staggerChildren: 0.35,
+    },
+  },
+};
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 100,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      ease: [0.6, 0.01, -0.05, 0.95],
+      duration: 1.6,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      ease: "easeInOut",
+      duration: 0.8,
+    },
+  },
+};
+
+const cardVariants = {
+  offscreen: {
+    y: 300,
+    opacity: 0,
+  },
+  onscreen: {
+    y: 50,
+    rotate: 0,
+    transition: {
+      type: "spring",
+      bounce: 0.4,
+      duration: 0.8,
+    },
+  },
+};
+
 const Gram2022h2 = () => {
   return (
     <Container>
@@ -78,16 +104,32 @@ const Gram2022h2 = () => {
           <ComponentWrapper
             style={{ maxWidth: "none", padding: "0", gap: "30px" }}
           >
-            <ComponentRow>
-              <ItemBox style={{ margin: "30px 0px" }}>
-                <Typotext
-                  size="50px"
-                  style={{ fontWeight: 600, color: blueGrey[900] }}
-                >
-                  LG 그램 2022 New
-                </Typotext>
-              </ItemBox>
-            </ComponentRow>
+            <motion.div
+              variants={container}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+            >
+              <ComponentRow style={{ width: "100%" }}>
+                <motion.div variants={item} style={{ width: "100%" }}>
+                  <ItemBox
+                    style={{
+                      margin: "30px 0px",
+                      width: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typotext
+                      variants={item}
+                      size="50px"
+                      style={{ fontWeight: 600, color: blueGrey[900] }}
+                    >
+                      LG 그램 2022 New
+                    </Typotext>
+                  </ItemBox>
+                </motion.div>
+              </ComponentRow>
+            </motion.div>
             <ComponentRow
               style={{
                 width: "100%",
@@ -110,55 +152,74 @@ const Gram2022h2 = () => {
               </ItemBox>
             </ComponentRow>
             <ComponentRow>
-              <ItemBox>
-                <Typotext
-                  size="40px"
-                  style={{ fontWeight: 600, color: blueGrey[900] }}
+              <motion.div
+                variants={cardVariants}
+                initial="offscreen"
+                whileInView="onscreen"
+                viewport={{ once: true, amount: 0.8 }}
+                style={{
+                  overflow: "hidden",
+                  display: "flex",
+                  position: "relative",
+                }}
+              >
+                <ItemBox
+                  style={{
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    gap: "20px",
+                  }}
                 >
-                  이제 새로운 LG 그램을 만나야 할 시간
-                </Typotext>
-              </ItemBox>
+                  <motion.div variants={cardVariants} style={{ width: "100%" }}>
+                    <ItemRow>
+                      <Typotext
+                        size="40px"
+                        style={{ fontWeight: 600, color: blueGrey[500] }}
+                      >
+                        이제 새로운 LG 그램을 만나야 할 시간
+                      </Typotext>
+                    </ItemRow>
+                  </motion.div>
+                  <motion.div variants={cardVariants} style={{ width: "100%" }}>
+                    <ItemRow>
+                      <Typotext
+                        size="40px"
+                        style={{ fontWeight: 600, color: blueGrey[500] }}
+                      >
+                        여전히 놀라운 가벼움.
+                      </Typotext>
+                    </ItemRow>
+                  </motion.div>
+                  <ItemRow>
+                    <Typotext
+                      size="40px"
+                      style={{ fontWeight: 600, color: blueGrey[500] }}
+                    >
+                      더 놀라운 아름다움.
+                    </Typotext>
+                  </ItemRow>
+                  <ItemRow>
+                    <Typotext
+                      size="40px"
+                      style={{ fontWeight: 600, color: blueGrey[500] }}
+                    >
+                      강력해진 퍼포먼스.
+                    </Typotext>
+                  </ItemRow>
+                  <ItemRow>
+                    <Typotext
+                      size="40px"
+                      style={{ fontWeight: 600, color: blueGrey[500] }}
+                    >
+                      어디 한번 빠져 보실까요?.
+                    </Typotext>
+                  </ItemRow>
+                </ItemBox>
+              </motion.div>
             </ComponentRow>
-            <ComponentRow>
-              <ItemBox>
-                <Typotext
-                  size="40px"
-                  style={{ fontWeight: 600, color: blueGrey[900] }}
-                >
-                  여전히 놀라운 가벼움.
-                </Typotext>
-              </ItemBox>
-            </ComponentRow>
-            <ComponentRow>
-              <ItemBox>
-                <Typotext
-                  size="40px"
-                  style={{ fontWeight: 600, color: blueGrey[900] }}
-                >
-                  더 놀라운 아름다움.
-                </Typotext>
-              </ItemBox>
-            </ComponentRow>
-            <ComponentRow>
-              <ItemBox>
-                <Typotext
-                  size="40px"
-                  style={{ fontWeight: 600, color: blueGrey[900] }}
-                >
-                  강력해진 퍼포먼스.
-                </Typotext>
-              </ItemBox>
-            </ComponentRow>
-            <ComponentRow>
-              <ItemBox>
-                <Typotext
-                  size="40px"
-                  style={{ fontWeight: 600, color: blueGrey[900] }}
-                >
-                  어디 한번 빠져 보실까요?.
-                </Typotext>
-              </ItemBox>
-            </ComponentRow>
+
             <ComponentRow
               style={{
                 width: "100%",
