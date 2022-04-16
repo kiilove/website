@@ -1,12 +1,7 @@
 import { blueGrey } from "@mui/material/colors";
 import { useEffect } from "react";
 
-import {
-  motion,
-  useAnimation,
-  useTransform,
-  useViewportScroll,
-} from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 import styled from "styled-components";
@@ -110,29 +105,19 @@ const fadeUpContainer = {
     opacity: 1,
     y: 0,
     transition: {
-      staggerChildren: 0.35,
+      delayChildren: 0.5,
     },
-  },
-  viewport: {
-    once: true,
   },
 };
 
 const fadeUpItem = {
-  offscreen: { opacity: 0 },
-  onscreen: {
-    y: 0,
-    opacity: 1,
-    transition: { ease: "easeInOut", duration: 0.5 },
-  },
+  offscreen: { y: 200, opacity: 0 },
+  onscreen: { y: 0, opacity: 1, transition: { type: "spring" } },
 };
 
 const Gram2022h2 = () => {
   const controls = useAnimation();
   const { ref, inView } = useInView();
-  const { scrollYProgress } = useViewportScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [0.2, 2]);
-  console.log(scale);
 
   useEffect(() => {
     if (inView) {
@@ -203,7 +188,6 @@ const Gram2022h2 = () => {
               <ItemBox
                 style={{
                   width: "100%",
-
                   justifyContent: "center",
                   alignItems: "center",
                   flexDirection: "column",
@@ -211,97 +195,81 @@ const Gram2022h2 = () => {
                 }}
               >
                 <motion.div
-                  ref={ref}
                   initial="offscreen"
                   animate={controls}
-                  viewport={{ once: true }}
-                  whileInView="onscreen"
                   variants={fadeUpContainer}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                  }}
                 >
-                  <motion.div
-                    variants={fadeUpItem}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typotext
-                      size="40px"
-                      style={{ fontWeight: 600, color: blueGrey[500] }}
-                    >
-                      이제 새로운 LG 그램을 만나야 할 시간
-                    </Typotext>
-                  </motion.div>
-                  <motion.div
-                    variants={fadeUpItem}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typotext
-                      size="40px"
-                      style={{ fontWeight: 600, color: blueGrey[500] }}
-                    >
-                      여전히 놀라운 가벼움.
-                    </Typotext>
-                  </motion.div>
-                  <motion.div
-                    variants={fadeUpItem}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typotext
-                      size="40px"
-                      style={{ fontWeight: 600, color: blueGrey[500] }}
-                    >
-                      더 놀라운 아름다움.
-                    </Typotext>
-                  </motion.div>
-                  <motion.div
-                    variants={fadeUpItem}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Typotext
-                      size="40px"
-                      style={{ fontWeight: 600, color: blueGrey[500] }}
-                    >
-                      강력해진 퍼포먼스.
-                    </Typotext>
-                  </motion.div>
-                  <motion.div
-                    variants={fadeUpItem}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <GridentText
-                      size="40px"
-                      style={{ fontWeight: 600, color: blueGrey[500] }}
-                    >
-                      어디 한번 빠져 보실까요?.
-                    </GridentText>
+                  <motion.div style={{ width: "100%" }} variants={container}>
+                    <motion.div style={{ width: "100%" }} variants={item}>
+                      <Typotext
+                        size="40px"
+                        style={{ fontWeight: 600, color: blueGrey[500] }}
+                      >
+                        이제 새로운 LG 그램을 만나야 할 시간
+                      </Typotext>
+                    </motion.div>
+                    <motion.div style={{ width: "100%" }} variants={item}>
+                      <Typotext
+                        size="40px"
+                        style={{ fontWeight: 600, color: blueGrey[500] }}
+                      >
+                        여전히 놀라운 가벼움.
+                      </Typotext>
+                    </motion.div>
+                    <motion.div style={{ width: "100%" }} variants={item}>
+                      <Typotext
+                        size="40px"
+                        style={{ fontWeight: 600, color: blueGrey[500] }}
+                      >
+                        더 놀라운 아름다움.
+                      </Typotext>
+                    </motion.div>
+                    <ItemRow>
+                      <motion.div style={{ width: "100%" }} variants={item}>
+                        <Typotext
+                          size="40px"
+                          style={{ fontWeight: 600, color: blueGrey[500] }}
+                        >
+                          강력해진 퍼포먼스.
+                        </Typotext>
+                      </motion.div>
+                    </ItemRow>
+                    <ItemRow>
+                      <motion.div style={{ width: "100%" }} variants={item}>
+                        <Typotext
+                          size="40px"
+                          style={{ fontWeight: 600, color: blueGrey[500] }}
+                        >
+                          어디 한번 빠져 보실까요?
+                        </Typotext>
+                      </motion.div>
+                    </ItemRow>
                   </motion.div>
                 </motion.div>
               </ItemBox>
             </ComponentRow>
 
+            <ComponentRow
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "30px 0px",
+              }}
+            >
+              <ItemBox
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ImgBox
+                  src="/img/product/laptop/lg/detail/gram/gram1.png"
+                  width="50%"
+                />
+              </ItemBox>
+            </ComponentRow>
             <ComponentRow
               style={{
                 width: "100%",

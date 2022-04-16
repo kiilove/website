@@ -25,6 +25,7 @@ import ProductWrite from "./admin/ProductWrite";
 import ReducerText from "./admin/ReducerText";
 import Gram2022h2 from "./pages/product/Gram2022h2";
 import { ParallaxProvider } from "react-scroll-parallax";
+import Gram2022h2Index from "./pages/product/gram2022h2/Gram2022h2Index";
 
 export const cartContext = createContext({ id: 1 });
 function App() {
@@ -55,7 +56,7 @@ function App() {
               <Order />
             </Route>
             <Route path="/lgGram">
-              <Gram2022h2 />
+              <Gram2022h2Index />
             </Route>
             <Route path="/myaccount">
               <MyAccount />
