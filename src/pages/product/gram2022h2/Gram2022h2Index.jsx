@@ -48,7 +48,7 @@ const Gram2022h2Index = () => {
     <Container>
       <Wrapper>
         <ComponentContainer>
-          <ComponentWrapper style={{ maxWidth: "none" }}>
+          <ComponentWrapper style={{ maxWidth: "none", padding: "0px" }}>
             <Scene1 />
           </ComponentWrapper>
         </ComponentContainer>

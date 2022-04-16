@@ -15,7 +15,7 @@ const Scene1 = () => {
   return (
     <Container>
       <Wrapper>
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
@@ -32,14 +32,14 @@ const Scene1 = () => {
           >
             LG 그램 2022
           </Typotext>
-        </motion.div>
+        </motion.div> */}
         <motion.div style={{ width: "100%" }}>
           <ItemBox
             style={{
               width: "100%",
               justifyContent: "center",
               alignItems: "center",
-              margin: "50px 0px",
+              margin: "0px 0px",
             }}
           >
             <video
